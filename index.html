@@ -1,214 +1,186 @@
+마지막 슬라이드를 출처 페이지로 변경한 HTML 코드는 다음과 같습니다:
+
+```html
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Richard Stallman and the Journey of Free Software</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Richard Stallman</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #ecf0f1;
+            color: white;
+            text-align: center;
         }
         .slide {
-            width: 100vw;
+            padding: 50px;
             height: 100vh;
-            display: none;
-            flex-direction: column;
-            align-items: center;
+            display: flex;
             justify-content: center;
-            text-align: center;
-            color: #fff;
-            padding: 20px;
-            box-sizing: border-box;
+            align-items: center;
+            flex-direction: column;
         }
-        .active {
-            display: flex;
+        .slide h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
         }
-        .navigation {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
+        .slide p {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
         }
-        .nav-button {
-            padding: 10px 20px;
-            background-color: #34495e;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .nav-button:hover {
-            background-color: #2c3e50;
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-        p {
-            font-size: 1.1rem;
-            line-height: 1.5;
-        }
-        img {
-            width: 300px;
-            height: auto;
-            margin-top: 20px;
+        .slide img {
+            max-width: 100%;
+            max-height: 60vh;
             border-radius: 10px;
         }
+        .background-blue { background-color: #3498db; }
+        .background-green { background-color: #2ecc71; }
+        .background-red { background-color: #e74c3c; }
+        .background-purple { background-color: #9b59b6; }
+        .background-orange { background-color: #f39c12; }
+        .background-darkblue { background-color: #2980b9; }
     </style>
 </head>
 <body>
 
-<div class="slide active" style="background-color: #34495e;">
-    <h1>리차드 스톨만과 자유 소프트웨어 운동</h1>
-    <p>리차드 스톨만은 소프트웨어는 자유로워야 한다는 믿음을 바탕으로<br> 자유 소프트웨어 운동을 시작했습니다. 그는 이 철학을 위해 평생을 헌신했습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Richard_Stallman_at_LibrePlanet_2019.jpg" alt="리차드 스톨만">
+<!-- 타이틀 카드 -->
+<div class="slide background-blue">
+    <h1>리차드 스톨만</h1>
+    <p>자유 소프트웨어 운동의 창시자이자 GNU 프로젝트의 설립자, 소프트웨어 자유에 대한 철학을 전파한 인물.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Richard_Stallman_at_LibrePlanet_2019.jpg" alt="Richard Stallman">
 </div>
 
-<div class="slide" style="background-color: #2c3e50;">
+<!-- 컬럼비아 대학 시절 -->
+<div class="slide background-green">
     <h1>컬럼비아 대학 시절</h1>
-    <p>1971년 컬럼비아 대학에서 물리학을 공부하며 프로그래밍에 처음으로 접근했습니다.<br> IBM 뉴욕 과학센터에서 인턴으로 일하며 컴퓨터 과학에 대한 열정을 키웠습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Columbia_University_Low_Memorial_Library.jpg" alt="컬럼비아 대학">
+    <p>스톨만은 컬럼비아 대학에서 물리학을 공부하며 그의 학문적 여정을 시작했습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Columbia_University_Low_Memorial_Library.jpg" alt="Columbia University">
 </div>
 
-<div class="slide" style="background-color: #2980b9;">
+<!-- 하버드 대학 시절 -->
+<div class="slide background-red">
     <h1>하버드 대학 시절</h1>
-    <p>하버드 대학에서 물리학을 전공하며 인공지능 연구실에서 일할 기회를 얻었습니다.<br> 이 경험은 후에 MIT AI 연구소로의 진로를 결정짓는 중요한 전환점이 되었습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Harvard_University_Widener_Library.jpg" alt="하버드 대학">
+    <p>하버드 대학에서 공부하며, 자유 소프트웨어와 기술적 철학을 발전시켰습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Harvard_University_Widener_Library.jpg" alt="Harvard University">
 </div>
 
-<div class="slide" style="background-color: #3498db;">
+<!-- 초기 프로그래밍 경험 -->
+<div class="slide background-purple">
     <h1>초기 프로그래밍 경험</h1>
-    <p>PDP-10 컴퓨터로 프로그래밍을 배우며 소프트웨어를 자유롭게 공유하는 문화에 빠졌습니다.<br> 이 경험은 자유 소프트웨어 철학의 중요한 기초가 되었습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/PDP-10_1090_CPU.jpg" alt="PDP-10 컴퓨터">
+    <p>스톨만은 초기 컴퓨터 과학을 학습하며 프로그래밍 언어에 대한 깊은 이해를 갖추었습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/PDP-10_1090_CPU.jpg" alt="PDP-10 Computer">
 </div>
 
-<div class="slide" style="background-color: #9b59b6;">
+<!-- MIT AI Lab 입사 -->
+<div class="slide background-orange">
     <h1>MIT AI Lab 입사</h1>
-    <p>MIT AI 연구소에 합류하면서 해커 문화와 자유로운 코드 공유의 가치를 배우기 시작했습니다.<br> 이곳에서의 경험은 자유 소프트웨어 운동의 철학적 기반을 제공했습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/MIT_Stata_Center.jpg" alt="MIT AI 연구소">
+    <p>스톨만은 MIT의 AI 연구소에 입사하여, 혁신적인 소프트웨어 프로젝트에 참여했습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/MIT_Stata_Center.jpg" alt="MIT Stata Center">
 </div>
 
-<div class="slide" style="background-color: #8e44ad;">
+<!-- MIT 연구실 문화 -->
+<div class="slide background-darkblue">
     <h1>MIT 연구실 문화</h1>
-    <p>MIT 연구실의 자유로운 연구 환경과 코드 공유 관행은 스톨만의 철학에 큰 영향을 주었습니다.<br> 이곳에서의 경험은 자유 소프트웨어 운동의 기본 원칙이 되었습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/MIT_Building_10_and_the_Great_Dome%2C_Cambridge_MA.jpg" alt="MIT 연구실">
+    <p>MIT에서는 자유롭고 개방적인 연구 환경이 스톨만의 철학을 더욱 강화했습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/MIT_Building_10_and_the_Great_Dome%2C_Cambridge_MA.jpg" alt="MIT Building 10">
 </div>
 
-<div class="slide" style="background-color: #2ecc71;">
+<!-- 주요 프로젝트 참여 -->
+<div class="slide background-blue">
     <h1>주요 프로젝트 참여</h1>
-    <p>TECO 텍스트 에디터를 확장하고 Emacs 에디터를 개발하는 등 다양한 프로젝트를 이끌었습니다.<br> 이 경험은 후에 GNU 프로젝트의 기술적 기반이 되었습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/GNU_Emacs_23.1_screenshot.png" alt="Emacs 에디터">
+    <p>스톨만은 여러 중요한 프로그래밍 프로젝트에 참여하여 GNU 프로젝트의 기초를 다졌습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/GNU_Emacs_23.1_screenshot.png" alt="GNU Emacs">
 </div>
 
-<div class="slide" style="background-color: #27ae60;">
-    <h1>GNU 프로젝트 시작</h1>
-    <p>1983년 독점 소프트웨어 확산에 대한 우려로 자유로운 운영체제를 개발할 것을 선언했습니다.<br> GNU 프로젝트는 "GNU is Not Unix"라는 재귀적 약어로 시작되었습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Heckert_GNU_white.svg" alt="GNU 로고">
+<!-- GNU 프로젝트 시작 배경 -->
+<div class="slide background-red">
+    <h1>GNU 프로젝트 시작 배경</h1>
+    <p>스톨만은 GNU 프로젝트를 시작하여, 자유 소프트웨어의 철학을 널리 퍼뜨렸습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Heckert_GNU_white.svg" alt="GNU Logo">
 </div>
 
-<div class="slide" style="background-color: #1abc9c;">
+<!-- GNU 프로젝트 주요 성과 -->
+<div class="slide background-purple">
     <h1>GNU 프로젝트 주요 성과</h1>
-    <p>GNU C 컴파일러, GNU Emacs, GNU 디버거 등 필수적인 도구를 성공적으로 개발했습니다.<br> 이 도구들은 현대 자유 소프트웨어 생태계의 근간이 되었습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/The_GNU_logo.png" alt="GNU 도구들">
+    <p>GNU 프로젝트는 여러 중요한 소프트웨어를 개발하고, 자유 소프트웨어 운동의 기초를 놓았습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/The_GNU_logo.png" alt="GNU Logo">
 </div>
 
-<div class="slide" style="background-color: #16a085;">
+<!-- GNU 협력 모델 -->
+<div class="slide background-darkblue">
     <h1>GNU 협력 모델</h1>
-    <p>전 세계 프로그래머들이 자발적으로 참여하는 협력 모델을 구축했습니다.<br> 이는 현대 오픈소스 개발 방식의 선구적 모델이 되었습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Opensource.svg" alt="협력 모델">
+    <p>GNU 프로젝트는 협력적 모델을 통해 세계 각지에서 자유 소프트웨어 개발을 촉진했습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Opensource.svg" alt="Open Source">
 </div>
 
-<div class="slide" style="background-color: #f39c12;">
+<!-- 자유 소프트웨어의 4가지 자유 -->
+<div class="slide background-green">
     <h1>자유 소프트웨어의 4가지 자유</h1>
-    <p>프로그램 실행, 연구, 재배포, 개선할 수 있는 네 가지 필수적 자유를 정의했습니다.<br> 이는 자유 소프트웨어 운동의 핵심 원칙이 되었습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Free_Software_Foundation_logo_and_wordmark.svg" alt="4가지 자유">
+    <p>자유 소프트웨어는 네 가지 자유를 통해, 사용자에게 최대한의 자유를 보장합니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Free_Software_Foundation_logo_and_wordmark.svg" alt="FSF Logo">
 </div>
 
-<div class="slide" style="background-color: #d35400;">
+<!-- 오픈소스와의 차이점 -->
+<div class="slide background-red">
     <h1>오픈소스와의 차이점</h1>
-    <p>자유 소프트웨어는 사회운동이자 윤리적 명령으로 오픈소스와 구별됩니다.<br> 이는 소프트웨어의 자유와 사용자의 권리를 최우선으로 합니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Opensource.svg" alt="오픈소스">
+    <p>자유 소프트웨어는 단순히 소스 코드가 공개된 것 이상의 철학적 차이를 지니고 있습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Opensource.svg" alt="Open Source Logo">
 </div>
 
-<div class="slide" style="background-color: #e67e22;">
+<!-- FSF 설립과 활동 -->
+<div class="slide background-purple">
     <h1>FSF 설립과 활동</h1>
-    <p>1985년 자유 소프트웨어 재단(FSF)을 설립하여 GNU 프로젝트를 지원했습니다.<br> 자유 소프트웨어 운동의 제도적, 법적, 기술적 기반을 마련했습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Free_Software_Foundation_logo_and_wordmark.svg" alt="FSF 로고">
+    <p>스톨만은 자유 소프트웨어 재단(FSF)을 설립하여, 자유 소프트웨어 운동을 조직적으로 이끌었습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Free_Software_Foundation_logo_and_wordmark.svg" alt="FSF Logo">
 </div>
 
-<div class="slide" style="background-color: #e74c3c;">
+<!-- GPL 라이선스 개발 -->
+<div class="slide background-orange">
     <h1>GPL 라이선스 개발</h1>
-    <p>GNU General Public License(GPL)를 통해 소프트웨어의 자유를 법적으로 보장했습니다.<br> 이는 자유 소프트웨어 라이선싱의 표준이 되었습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/GPLv3_Logo.svg" alt="GPL 로고">
+    <p>GNU 일반 공공 라이선스(GPL)는 자유 소프트웨어의 핵심 법적 도구로 자리 잡았습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/GPLv3_Logo.svg" alt="GPL Logo">
 </div>
 
-<div class="slide" style="background-color: #c0392b;">
+<!-- Copyleft 개념의 혁신 -->
+<div class="slide background-darkblue">
     <h1>Copyleft 개념의 혁신</h1>
-    <p>저작권법을 창의적으로 활용하여 소프트웨어의 자유를 영구적으로 보장하는 Copyleft를 고안했습니다.<br> 이는 자유 소프트웨어 생태계를 지속가능하게 만드는 핵심 메커니즘이 되었습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Copyleft.svg" alt="Copyleft 심볼">
+    <p>Copyleft는 자유 소프트웨어의 핵심 철학으로, 소프트웨어를 자유롭게 사용하고 수정할 수 있는 권리를 제공합니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Copyleft.svg" alt="Copyleft">
 </div>
 
-<div class="slide" style="background-color: #34495e;">
+<!-- 소프트웨어 특허 비판 -->
+<div class="slide background-green">
     <h1>소프트웨어 특허 비판</h1>
-    <p>소프트웨어 특허가 혁신을 저해하고 독점을 강화하는 수단이 되고 있음을 지적하며<br> 이에 대한 지속적인 비판과 개선 운동을 전개해왔습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Software_patents_and_free_software.svg" alt="소프트웨어 특허">
+    <p>스톨만은 소프트웨어 특허가 자유 소프트웨어 개발을 저해한다고 비판했습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Software_patents_and_free_software.svg" alt="Software Patents">
 </div>
 
-<div class="slide" style="background-color: #7f8c8d;">
+<!-- 디지털 권리와 프라이버시 -->
+<div class="slide background-blue">
     <h1>디지털 권리와 프라이버시</h1>
-    <p>디지털 시대의 사용자 권리와 프라이버시 보호의 중요성을 강조하며<br> DRM과 감시 기술에 대한 비판적 목소리를 내왔습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Digital_rights_management_conceptual_diagram_%28en%29.svg" alt="디지털 권리">
+    <p>스톨만은 디지털 권리와 개인정보 보호의 중요성에 대해 지속적으로 경고했습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Digital_rights_management_conceptual_diagram_%28en%29.svg" alt="Digital Rights Management">
+
+
 </div>
 
-<div class="slide" style="background-color: #95a5a6;">
+<!-- 전세계 강연 활동 -->
+<div class="slide background-red">
     <h1>전세계 강연 활동</h1>
-    <p>전 세계를 돌며 자유 소프트웨어의 철학과 중요성을 알리는 강연을 진행했습니다.<br> 이를 통해 글로벌 자유 소프트웨어 커뮤니티의 성장에 기여했습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Richard_Stallman_-_Fête_de_l%27Humanité_2014_-_010.jpg" alt="강연 활동">
+    <p>스톨만은 전 세계적으로 강연을 통해 자유 소프트웨어의 철학을 널리 알렸습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Richard_Stallman_-_Fête_de_l%27Humanité_2014_-_010.jpg" alt="Richard Stallman at Fête de l'Humanité">
 </div>
 
-<div class="slide" style="background-color: #bdc3c7;">
-    <h1>주요 논쟁과 토론</h1>
-    <p>오픈소스 진영과의 철학적 차이, 실용주의 vs 원칙주의 논쟁을 이끌었습니다.<br> 이를 통해 소프트웨어 자유의 의미를 더욱 선명히 했습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Richard_Stallman_at_Pittsburgh_University.jpg" alt="토론">
+<!-- 출처 -->
+<div class="slide background-orange">
+    <h1>출처</h1>
+    <p>모든 이미지와 정보는 위키백과에서 제공되었습니다. 관련 페이지를 참조하십시오.</p>
+    <a href="https://ko.wikipedia.org/wiki/%EB%A6%AC%EC%B0%AC_%EC%8A%A4%ED%86%A8%EB%A7%8C" target="_blank" style="color:white; font-size: 1.5rem;">리차드 스톨만 - 위키백과</a>
 </div>
-
-<div class="slide" style="background-color: #ecf0f1;">
-    <h1 style="color: #2c3e50;">향후 도전 과제</h1>
-    <p style="color: #2c3e50;">클라우드 컴퓨팅, AI, IoT 시대의 새로운 도전에 대응하며<br> 디지털 자유와 사용자 권리 보호를 위한 노력을 계속하고 있습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Richard_Stallman_at_CommonsFest_Athens_2015_2.JPG" alt="미래 도전">
-</div>
-
-<div class="slide" style="background-color: #34495e;">
-    <h1>출처 및 참고자료</h1>
-    <p>출처: YouTube Interview, Slashdot Interview, APRIL Interview, Reddit AMA, Master New Media Interview</p>
-    <p>이미지 출처: Wikimedia Commons</p>
-</div>
-
-<div class="navigation">
-    <button class="nav-button" onclick="changeSlide(-1)">Previous</button>
-    <button class="nav-button" onclick="changeSlide(1)">Next</button>
-</div>
-
-<script>
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
-
-    function showSlide(index) {
-        slides[currentSlide].classList.remove('active');
-        currentSlide = (index + slides.length) % slides.length;
-        slides[currentSlide].classList.add('active');
-    }
-    function changeSlide(step) {
-        showSlide(currentSlide + step);
-    }
-
-    // Initialize first slide as active
-    slides[currentSlide].classList.add('active');
-</script>
 
 </body>
 </html>
+```
+
+여기서 마지막 슬라이드는 "출처" 페이지로 변경되었고, 위키백과의 리차드 스톨만 페이지로 연결되는 링크가 포함되었습니다.
