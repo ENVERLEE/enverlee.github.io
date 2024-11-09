@@ -1,582 +1,214 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
-    <title>리차드 스톨만과 자유 소프트웨어 운동의 여정</title>
+    <title>Richard Stallman and the Journey of Free Software</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            overflow: hidden;
+            background-color: #ecf0f1;
         }
-
-        .slide-container {
+        .slide {
             width: 100vw;
             height: 100vh;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
-            box-sizing: border-box;
-            color: white;
             text-align: center;
+            color: #fff;
+            padding: 20px;
+            box-sizing: border-box;
         }
-
-        .slide.active {
-            opacity: 1;
-        }
-
-        .image-placeholder {
-            width: 400px;
-            height: 300px;
-            margin: 1rem 0;
+        .active {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: rgba(255, 255, 255, 0.1);
         }
-
-        .image-placeholder img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         .navigation {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 100;
             display: flex;
-            gap: 1rem;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px 20px;
-            border-radius: 20px;
+            gap: 10px;
         }
-
         .nav-button {
-            background: none;
-            border: 2px solid white;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 15px;
+            padding: 10px 20px;
+            background-color: #34495e;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
         }
-
         .nav-button:hover {
-            background: white;
-            color: black;
+            background-color: #2c3e50;
         }
-
-        .content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
         h1 {
             font-size: 2.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
-
         p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin: 0.5rem 0;
+            font-size: 1.1rem;
+            line-height: 1.5;
         }
-
-        .source {
-            font-size: 0.8rem;
-            opacity: 0.7;
-            margin-top: 0.5rem;
-        }
-
-        .slide-counter {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 5px 15px;
-            border-radius: 15px;
-            color: white;
-            font-size: 14px;
-        }
-
-        .reference-list {
-            text-align: left;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
+        img {
+            width: 300px;
+            height: auto;
+            margin-top: 20px;
             border-radius: 10px;
-            margin-top: 2rem;
-        }
-
-        .reference-list p {
-            font-size: 1rem;
-            margin: 0.5rem 0;
         }
     </style>
 </head>
-
 <body>
-    <div class="slide-container">
-        <!-- 1. 타이틀 슬라이드 -->
-        <div class="slide active" style="background: linear-gradient(135deg, #2c3e50, #3498db);">
-            <div class="content">
-                <h1>리차드 스톨만과<br>자유 소프트웨어 운동의 여정</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="리차드 스톨만" />
-                </div>
-                <p>"소프트웨어는 자유로워야 한다" - Richard Stallman</p>
-            </div>
-        </div>
 
-        <!-- 2. 컬럼비아 대학 시절 -->
-        <div class="slide" style="background: linear-gradient(135deg, #3498db, #2980b9);">
-            <div class="content">
-                <h1>컬럼비아 대학 시절</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="컬럼비아 대학" />
-                </div>
-                <p>1971년 컬럼비아 대학에서 물리학을 공부하면서 처음으로 컴퓨터 프로그래밍에 접근했으며,</p>
-                <p>IBM 뉴욕 과학센터에서 여름 인턴으로 일하며 첫 프로그래밍 경험을 쌓았습니다.</p>
-            </div>
-        </div>
-        <!-- 3. 하버드 대학 시절 -->
-        <div class="slide" style="background: linear-gradient(135deg, #2980b9, #2c3e50);">
-            <div class="content">
-                <h1>하버드 대학 시절</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="하버드 대학" />
-                </div>
-                <p>하버드 물리학과에서 공부하는 동안 인공지능 연구실에서 일할 기회를 얻었고,</p>
-                <p>이 경험은 후에 MIT AI 연구소로 이어지는 중요한 전환점이 되었습니다.</p>
-            </div>
-        </div>
+<div class="slide active" style="background-color: #34495e;">
+    <h1>리차드 스톨만과 자유 소프트웨어 운동</h1>
+    <p>리차드 스톨만은 소프트웨어는 자유로워야 한다는 믿음을 바탕으로<br> 자유 소프트웨어 운동을 시작했습니다. 그는 이 철학을 위해 평생을 헌신했습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Richard_Stallman_at_LibrePlanet_2019.jpg" alt="리차드 스톨만">
+</div>
 
-        <!-- 4. 초기 프로그래밍 경험 -->
-        <div class="slide" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
-            <div class="content">
-                <h1>초기 프로그래밍 경험</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="PDP-10" />
-                </div>
-                <p>1970년대 초반, PDP-10 컴퓨터로 프로그래밍을 배우며 소프트웨어 공유 문화를 경험했고,</p>
-                <p>이는 후에 자유 소프트웨어 운동의 철학적 기반이 되었습니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #2c3e50;">
+    <h1>컬럼비아 대학 시절</h1>
+    <p>1971년 컬럼비아 대학에서 물리학을 공부하며 프로그래밍에 처음으로 접근했습니다.<br> IBM 뉴욕 과학센터에서 인턴으로 일하며 컴퓨터 과학에 대한 열정을 키웠습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Columbia_University_Low_Memorial_Library.jpg" alt="컬럼비아 대학">
+</div>
 
-        <!-- 5. MIT AI Lab 입사 -->
-        <div class="slide" style="background: linear-gradient(135deg, #c0392b, #e74c3c);">
-            <div class="content">
-                <h1>MIT AI Lab 입사</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="MIT AI Lab" />
-                </div>
-                <p>1971년, MIT AI 연구소에 합류하면서 본격적인 프로그래머의 길을 걷기 시작했으며,</p>
-                <p>이곳에서 해커 문화와 자유로운 소프트웨어 공유의 정신을 깊이 체득했습니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #2980b9;">
+    <h1>하버드 대학 시절</h1>
+    <p>하버드 대학에서 물리학을 전공하며 인공지능 연구실에서 일할 기회를 얻었습니다.<br> 이 경험은 후에 MIT AI 연구소로의 진로를 결정짓는 중요한 전환점이 되었습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Harvard_University_Widener_Library.jpg" alt="하버드 대학">
+</div>
 
-        <!-- 6. MIT 연구실 문화 -->
-        <div class="slide" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
-            <div class="content">
-                <h1>MIT 연구실 문화</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="MIT 연구실" />
-                </div>
-                <p>MIT AI Lab의 자유로운 연구 문화와 코드 공유 관행은 스톨만의 철학 형성에 큰 영향을 주었으며,</p>
-                <p>이는 후에 자유 소프트웨어 운동의 기본 원칙이 되었습니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #3498db;">
+    <h1>초기 프로그래밍 경험</h1>
+    <p>PDP-10 컴퓨터로 프로그래밍을 배우며 소프트웨어를 자유롭게 공유하는 문화에 빠졌습니다.<br> 이 경험은 자유 소프트웨어 철학의 중요한 기초가 되었습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/PDP-10_1090_CPU.jpg" alt="PDP-10 컴퓨터">
+</div>
 
-        <!-- 7. 주요 프로젝트 참여 -->
-        <div class="slide" style="background: linear-gradient(135deg, #27ae60, #2ecc71);">
-            <div class="content">
-                <h1>주요 프로젝트 참여</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="Emacs 에디터" />
-                </div>
-                <p>TECO 텍스트 에디터를 확장하고 Emacs 에디터를 개발하는 등 혁신적인 프로젝트를 이끌었으며,</p>
-                <p>이러한 경험은 후에 GNU 프로젝트의 기술적 기반이 되었습니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #9b59b6;">
+    <h1>MIT AI Lab 입사</h1>
+    <p>MIT AI 연구소에 합류하면서 해커 문화와 자유로운 코드 공유의 가치를 배우기 시작했습니다.<br> 이곳에서의 경험은 자유 소프트웨어 운동의 철학적 기반을 제공했습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/MIT_Stata_Center.jpg" alt="MIT AI 연구소">
+</div>
 
-        <!-- 8. GNU 프로젝트 시작 배경 -->
-        <div class="slide" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
-            <div class="content">
-                <h1>GNU 프로젝트 시작 배경</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="GNU 로고" />
-                </div>
-                <p>1983년, 독점 소프트웨어의 확산에 대한 우려로 자유로운 운영체제 개발을 선언했으며,</p>
-                <p>이는 'GNU is Not Unix'라는 재귀적 약자로 시작된 혁명적인 프로젝트였습니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #8e44ad;">
+    <h1>MIT 연구실 문화</h1>
+    <p>MIT 연구실의 자유로운 연구 환경과 코드 공유 관행은 스톨만의 철학에 큰 영향을 주었습니다.<br> 이곳에서의 경험은 자유 소프트웨어 운동의 기본 원칙이 되었습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/MIT_Building_10_and_the_Great_Dome%2C_Cambridge_MA.jpg" alt="MIT 연구실">
+</div>
 
-        <!-- 9. GNU 프로젝트 주요 성과 -->
-        <div class="slide" style="background: linear-gradient(135deg, #8e44ad, #9b59b6);">
-            <div class="content">
-                <h1>GNU 프로젝트 주요 성과</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="GNU 도구들" />
-                </div>
-                <p>GNU C 컴파일러, GNU Emacs, GNU 디버거 등 핵심 도구들을 성공적으로 개발했으며,</p>
-                <p>이는 현대 자유 소프트웨어 생태계의 근간이 되었습니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #2ecc71;">
+    <h1>주요 프로젝트 참여</h1>
+    <p>TECO 텍스트 에디터를 확장하고 Emacs 에디터를 개발하는 등 다양한 프로젝트를 이끌었습니다.<br> 이 경험은 후에 GNU 프로젝트의 기술적 기반이 되었습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/GNU_Emacs_23.1_screenshot.png" alt="Emacs 에디터">
+</div>
 
-        <!-- 10. GNU 협력 모델 -->
-        <div class="slide" style="background: linear-gradient(135deg, #f1c40f, #f39c12);">
-            <div class="content">
-                <h1>GNU 협력 모델</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="협력 모델" />
-                </div>
-                <p>전 세계 프로그래머들이 자발적으로 참여하는 협력 모델을 구축했으며,</p>
-                <p>이는 현대 오픈소스 개발 방식의 선구적 모델이 되었습니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #27ae60;">
+    <h1>GNU 프로젝트 시작</h1>
+    <p>1983년 독점 소프트웨어 확산에 대한 우려로 자유로운 운영체제를 개발할 것을 선언했습니다.<br> GNU 프로젝트는 "GNU is Not Unix"라는 재귀적 약어로 시작되었습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Heckert_GNU_white.svg" alt="GNU 로고">
+</div>
 
-        <!-- 11. 자유 소프트웨어의 4가지 자유 -->
-        <div class="slide" style="background: linear-gradient(135deg, #f39c12, #f1c40f);">
-            <div class="content">
-                <h1>자유 소프트웨어의 4가지 자유</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="4가지 자유" />
-                </div>
-                <p>프로그램을 실행, 연구, 재배포, 개선할 수 있는 네 가지 필수적 자유를 정의했으며,</p>
-                <p>이는 자유 소프트웨어 운동의 핵심 원칙이 되었습니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #1abc9c;">
+    <h1>GNU 프로젝트 주요 성과</h1>
+    <p>GNU C 컴파일러, GNU Emacs, GNU 디버거 등 필수적인 도구를 성공적으로 개발했습니다.<br> 이 도구들은 현대 자유 소프트웨어 생태계의 근간이 되었습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/The_GNU_logo.png" alt="GNU 도구들">
+</div>
 
-        <!-- 12. 오픈소스와의 차이점 -->
-        <div class="slide" style="background: linear-gradient(135deg, #e67e22, #d35400);">
-            <div class="content">
-                <h1>오픈소스와의 차이점</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="오픈소스 vs 자유소프트웨어" />
-                </div>
-                <p>자유 소프트웨어는 사회운동이자 윤리적 명령으로 오픈소스의 실용주의적 접근과 구별되며,</p>
-                <p>이는 소프트웨어의 자유와 사용자의 권리를 최우선으로 합니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #16a085;">
+    <h1>GNU 협력 모델</h1>
+    <p>전 세계 프로그래머들이 자발적으로 참여하는 협력 모델을 구축했습니다.<br> 이는 현대 오픈소스 개발 방식의 선구적 모델이 되었습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Opensource.svg" alt="협력 모델">
+</div>
 
-        <!-- 13. FSF 설립과 활동 -->
-        <div class="slide" style="background: linear-gradient(135deg, #d35400, #e67e22);">
-            <div class="content">
-                <h1>FSF 설립과 활동</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="FSF 로고" />
-                </div>
-                <p>1985년 자유 소프트웨어 재단(FSF)을 설립하여 GNU 프로젝트를 지원하고,</p>
-                <p>자유 소프트웨어 운동의 제도적, 법적, 기술적 기반을 마련했습니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #f39c12;">
+    <h1>자유 소프트웨어의 4가지 자유</h1>
+    <p>프로그램 실행, 연구, 재배포, 개선할 수 있는 네 가지 필수적 자유를 정의했습니다.<br> 이는 자유 소프트웨어 운동의 핵심 원칙이 되었습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Free_Software_Foundation_logo_and_wordmark.svg" alt="4가지 자유">
+</div>
 
-        <!-- 14. GPL 라이선스 개발 -->
-        <div class="slide" style="background: linear-gradient(135deg, #1abc9c, #16a085);">
-            <div class="content">
-                <h1>GPL 라이선스 개발</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="GPL 로고" />
-                </div>
-                <p>GNU General Public License(GPL)를 통해 소프트웨어의 자유를 법적으로 보장하고,</p>
-                <p>이는 자유 소프트웨어 라이선싱의 표준이 되었습니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #d35400;">
+    <h1>오픈소스와의 차이점</h1>
+    <p>자유 소프트웨어는 사회운동이자 윤리적 명령으로 오픈소스와 구별됩니다.<br> 이는 소프트웨어의 자유와 사용자의 권리를 최우선으로 합니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Opensource.svg" alt="오픈소스">
+</div>
 
-        <!-- 15. Copyleft 개념의 혁신 -->
-        <div class="slide" style="background: linear-gradient(135deg, #16a085, #1abc9c);">
-            <div class="content">
-                <h1>Copyleft 개념의 혁신</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="Copyleft 심볼" />
-                </div>
-                <p>저작권법을 창의적으로 활용하여 소프트웨어의 자유를 영구적으로 보장하는 Copyleft를 고안했으며,</p>
-                <p>이는 자유 소프트웨어 생태계를 지속가능하게 만드는 핵심 메커니즘이 되었습니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #e67e22;">
+    <h1>FSF 설립과 활동</h1>
+    <p>1985년 자유 소프트웨어 재단(FSF)을 설립하여 GNU 프로젝트를 지원했습니다.<br> 자유 소프트웨어 운동의 제도적, 법적, 기술적 기반을 마련했습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Free_Software_Foundation_logo_and_wordmark.svg" alt="FSF 로고">
+</div>
 
-        <!-- 16. 소프트웨어 특허 비판 -->
-        <div class="slide" style="background: linear-gradient(135deg, #2c3e50, #34495e);">
-            <div class="content">
-                <h1>소프트웨어 특허 비판</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="소프트웨어 특허" />
-                </div>
-                <p>소프트웨어 특허가 혁신을 저해하고 독점을 강화하는 수단이 되고 있음을 지적하며,</p>
-                <p>이에 대한 지속적인 비판과 개선 운동을 전개해왔습니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #e74c3c;">
+    <h1>GPL 라이선스 개발</h1>
+    <p>GNU General Public License(GPL)를 통해 소프트웨어의 자유를 법적으로 보장했습니다.<br> 이는 자유 소프트웨어 라이선싱의 표준이 되었습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/GPLv3_Logo.svg" alt="GPL 로고">
+</div>
 
-        <!-- 17. 디지털 권리와 프라이버시 -->
-        <div class="slide" style="background: linear-gradient(135deg, #34495e, #2c3e50);">
-            <div class="content">
-                <h1>디지털 권리와 프라이버시</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="디지털 권리" />
-                </div>
-                <p>디지털 시대의 사용자 권리와 프라이버시 보호의 중요성을 강조하며,</p>
-                <p>DRM과 감시 기술에 대한 비판적 목소리를 내왔습니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #c0392b;">
+    <h1>Copyleft 개념의 혁신</h1>
+    <p>저작권법을 창의적으로 활용하여 소프트웨어의 자유를 영구적으로 보장하는 Copyleft를 고안했습니다.<br> 이는 자유 소프트웨어 생태계를 지속가능하게 만드는 핵심 메커니즘이 되었습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Copyleft.svg" alt="Copyleft 심볼">
+</div>
 
-        <!-- 18. 전세계 강연 활동 -->
-        <div class="slide" style="background: linear-gradient(135deg, #7f8c8d, #95a5a6);">
-            <div class="content">
-                <h1>전세계 강연 활동</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="강연 활동" />
-                </div>
-                <p>전 세계를 돌며 자유 소프트웨어의 철학과 중요성을 알리는 강연을 진행했으며,</p>
-                <p>이를 통해 글로벌 자유 소프트웨어 커뮤니티의 성장에 기여했습니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #34495e;">
+    <h1>소프트웨어 특허 비판</h1>
+    <p>소프트웨어 특허가 혁신을 저해하고 독점을 강화하는 수단이 되고 있음을 지적하며<br> 이에 대한 지속적인 비판과 개선 운동을 전개해왔습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Software_patents_and_free_software.svg" alt="소프트웨어 특허">
+</div>
 
-        <!-- 19. 주요 논쟁과 토론 -->
-        <div class="slide" style="background: linear-gradient(135deg, #95a5a6, #7f8c8d);">
-            <div class="content">
-                <h1>주요 논쟁과 토론</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="토론" />
-                </div>
-                <p>오픈소스 진영과의 철학적 차이, 실용주의 vs 원칙주의 논쟁을 이끌었으며,</p>
-                <p>이를 통해 소프트웨어 자유의 의미를 더욱 선명히 했습니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #7f8c8d;">
+    <h1>디지털 권리와 프라이버시</h1>
+    <p>디지털 시대의 사용자 권리와 프라이버시 보호의 중요성을 강조하며<br> DRM과 감시 기술에 대한 비판적 목소리를 내왔습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Digital_rights_management_conceptual_diagram_%28en%29.svg" alt="디지털 권리">
+</div>
 
-        <!-- 20. 향후 도전 과제 -->
-        <div class="slide" style="background: linear-gradient(135deg, #bdc3c7, #ecf0f1);">
-            <div class="content">
-                <h1 style="color: #2c3e50;">향후 도전 과제</h1>
-                <div class="image-placeholder">
-                    <img src="/api/placeholder/400/300" alt="미래 도전" />
-                </div>
-                <p style="color: #2c3e50;">클라우드 컴퓨팅, AI, IoT 시대의 새로운 도전에 대응하며,</p>
-                <p style="color: #2c3e50;">디지털 자유와 사용자 권리 보호를 위한 노력을 계속하고 있습니다.</p>
-            </div>
-        </div>
+<div class="slide" style="background-color: #95a5a6;">
+    <h1>전세계 강연 활동</h1>
+    <p>전 세계를 돌며 자유 소프트웨어의 철학과 중요성을 알리는 강연을 진행했습니다.<br> 이를 통해 글로벌 자유 소프트웨어 커뮤니티의 성장에 기여했습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Richard_Stallman_-_Fête_de_l%27Humanité_2014_-_010.jpg" alt="강연 활동">
+</div>
 
-        <!-- 21. 출처 및 참고자료 -->
-        <div class="slide" style="background: linear-gradient(135deg, #34495e, #2c3e50);">
-            <div class="content">
-                <h1>출처 및 참고자료</h1>
-                <div class="reference-list">
-                    <p>1. YouTube Interview: https://www.youtube.com/watch?v=ucXYWG0vqqk</p>
-                    <p>2. Slashdot Interview: https://interviews.slashdot.org/story/14/05/05/2012218/</p>
-                    <p>3. APRIL Interview: https://www.april.org/richard-stallman-interview</p>
-                    <p>4. Reddit AMA: https://www.reddit.com/r/linux/comments/5rky15/</p>
-                    <p>5. Master New Media Interview:
-                        https://masternewmedia.com/what-is-free-software-a-reply-from-the-source</p>
-                    <p><br>이미지 출처: Wikimedia Commons</p>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="slide" style="background-color: #bdc3c7;">
+    <h1>주요 논쟁과 토론</h1>
+    <p>오픈소스 진영과의 철학적 차이, 실용주의 vs 원칙주의 논쟁을 이끌었습니다.<br> 이를 통해 소프트웨어 자유의 의미를 더욱 선명히 했습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Richard_Stallman_at_Pittsburgh_University.jpg" alt="토론">
+</div>
 
-    <div class="slide-counter">
-        <span id="current-slide">1</span> / <span>21</span>
-    </div>
+<div class="slide" style="background-color: #ecf0f1;">
+    <h1 style="color: #2c3e50;">향후 도전 과제</h1>
+    <p style="color: #2c3e50;">클라우드 컴퓨팅, AI, IoT 시대의 새로운 도전에 대응하며<br> 디지털 자유와 사용자 권리 보호를 위한 노력을 계속하고 있습니다.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Richard_Stallman_at_CommonsFest_Athens_2015_2.JPG" alt="미래 도전">
+</div>
 
-    <div class="navigation">
-        <button class="nav-button" onclick="prevSlide()">이전</button>
-        <button class="nav-button" onclick="nextSlide()">다음</button>
-    </div>
+<div class="slide" style="background-color: #34495e;">
+    <h1>출처 및 참고자료</h1>
+    <p>출처: YouTube Interview, Slashdot Interview, APRIL Interview, Reddit AMA, Master New Media Interview</p>
+    <p>이미지 출처: Wikimedia Commons</p>
+</div>
 
-    <script>
-        // 이미지 매핑 데이터
-        const imageMapping = [
-            {
-                slideTitle: "리차드 스톨만과 자유 소프트웨어 운동의 여정",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/2/28/Richard_Stallman_at_LibrePlanet_2019.jpg"
-            },
-            {
-                slideTitle: "컬럼비아 대학 시절",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Columbia_University_Low_Memorial_Library.jpg"
-            },
-            {
-                slideTitle: "하버드 대학 시절",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/7/70/Harvard_University_Widener_Library.jpg"
-            },
-            {
-                slideTitle: "초기 프로그래밍 경험",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/1/11/PDP-10_1090_CPU.jpg"
-            },
-            {
-                slideTitle: "MIT AI Lab 입사",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/0/0c/MIT_Stata_Center.jpg"
-            },
-            {
-                slideTitle: "MIT 연구실 문화",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/4/4d/MIT_Building_10_and_the_Great_Dome%2C_Cambridge_MA.jpg"
-            },
-            {
-                slideTitle: "주요 프로젝트 참여",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/0/08/GNU_Emacs_23.1_screenshot.png"
-            },
-            {
-                slideTitle: "GNU 프로젝트 시작 배경",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/2/22/Heckert_GNU_white.svg"
-            },
-            {
-                slideTitle: "GNU 프로젝트 주요 성과",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/3/35/The_GNU_logo.png"
-            },
-            {
-                slideTitle: "GNU 협력 모델",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Opensource.svg"
-            },
-            {
-                slideTitle: "자유 소프트웨어의 4가지 자유",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Free_Software_Foundation_logo_and_wordmark.svg"
-            },
-            {
-                slideTitle: "오픈소스와의 차이점",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/4/42/Opensource.svg"
-            },
-            {
-                slideTitle: "FSF 설립과 활동",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Free_Software_Foundation_logo_and_wordmark.svg"
-            },
-            {
-                slideTitle: "GPL 라이선스 개발",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/9/93/GPLv3_Logo.svg"
-            },
-            {
-                slideTitle: "Copyleft 개념의 혁신",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/8/8b/Copyleft.svg"
-            },
-            {
-                slideTitle: "소프트웨어 특허 비판",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Software_patents_and_free_software.svg"
-            },
-            {
-                slideTitle: "디지털 권리와 프라이버시",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/0/09/Digital_rights_management_conceptual_diagram_%28en%29.svg"
-            },
-            {
-                slideTitle: "전세계 강연 활동",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Richard_Stallman_-_Fête_de_l%27Humanité_2014_-_010.jpg"
-            },
-            {
-                slideTitle: "주요 논쟁과 토론",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Richard_Stallman_at_Pittsburgh_University.jpg"
-            },
-            {
-                slideTitle: "향후 도전 과제",
-                realImage: "https://upload.wikimedia.org/wikipedia/commons/3/3d/Richard_Stallman_at_CommonsFest_Athens_2015_2.JPG"
-            }
-        ];
+<div class="navigation">
+    <button class="nav-button" onclick="changeSlide(-1)">Previous</button>
+    <button class="nav-button" onclick="changeSlide(1)">Next</button>
+</div>
 
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const currentSlideDisplay = document.getElementById('current-slide');
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
 
-        function showSlide(n) {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (n + slides.length) % slides.length;
-            slides[currentSlide].classList.add('active');
-            currentSlideDisplay.textContent = currentSlide + 1;
-        }
+    function showSlide(index) {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (index + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }
+    function changeSlide(step) {
+        showSlide(currentSlide + step);
+    }
 
-        function nextSlide() {
-            showSlide(currentSlide + 1);
-        }
+    // Initialize first slide as active
+    slides[currentSlide].classList.add('active');
+</script>
 
-        function prevSlide() {
-            showSlide(currentSlide - 1);
-        }
-
-        // 키보드 네비게이션
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextSlide();
-            if (e.key === 'ArrowLeft') prevSlide();
-        });
-
-        // 터치 스와이프
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        document.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        document.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            if (touchStartX - touchEndX > 50) nextSlide();
-            if (touchEndX - touchStartX > 50) prevSlide();
-        });
-
-        // 이미지 교체 함수
-        function replaceImages() {
-            const slides = document.querySelectorAll('.slide');
-
-            slides.forEach(slide => {
-                const titleElement = slide.querySelector('h1');
-                if (!titleElement) return;
-
-                const title = titleElement.textContent.trim();
-                const mapping = imageMapping.find(m => title.includes(m.slideTitle));
-                if (!mapping) return;
-
-                const img = slide.querySelector('img');
-                if (img && img.src.includes('/api/placeholder/')) {
-                    img.src = mapping.realImage;
-
-                    img.onerror = function () {
-                        console.warn(`Failed to load image for: ${mapping.slideTitle}`);
-                        this.src = '/api/placeholder/400/300';
-                    };
-
-                    // 이미지 소스 표시가 아직 없는 경우에만 추가
-                    if (!slide.querySelector('.source')) {
-                        const sourceDiv = document.createElement('div');
-                        sourceDiv.className = 'source';
-                        sourceDiv.textContent = 'Image source: Wikimedia Commons';
-                        img.parentElement.appendChild(sourceDiv);
-                    }
-                }
-            });
-        }
-
-        // DOM 로드 후 이미지 교체 실행
-        document.addEventListener('DOMContentLoaded', () => {
-            replaceImages();
-            console.log('Image replacement complete');
-        });
-
-        // 동적 슬라이드 추가 감지
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.addedNodes.length) {
-                    replaceImages();
-                }
-            });
-        });
-
-        observer.observe(document.querySelector('.slide-container'), {
-            childList: true,
-            subtree: true
-        });
-    </script>
 </body>
-
 </html>
