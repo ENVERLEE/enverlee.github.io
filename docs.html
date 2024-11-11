@@ -281,3 +281,252 @@
 <li>액세스 토큰은 발급 후 일정 시간이 지나면 만료됩니다.</li>
 <li>민감한 데이터는 전송 시 항상 암호화됩니다.</li>
 </ul>
+<style>
+    /* Reset and base styles */
+:root {
+  --primary-color: #2563eb;
+  --text-color: #1f2937;
+  --border-color: #e5e7eb;
+  --code-bg: #f8fafc;
+  --header-bg: #f1f5f9;
+  --warning-color: #dc2626;
+  --success-color: #059669;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Typography */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 2.5rem 0 1.5rem;
+  color: var(--primary-color);
+}
+
+h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+}
+
+p {
+  margin-bottom: 1.2rem;
+}
+
+/* Code blocks */
+pre {
+  background-color: var(--code-bg);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1px solid var(--border-color);
+}
+
+code {
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 0.9rem;
+}
+
+/* HTTP method badges */
+.http-method {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-right: 0.5rem;
+}
+
+.http-get {
+  background-color: #10B981;
+  color: white;
+}
+
+.http-post {
+  background-color: #3B82F6;
+  color: white;
+}
+
+.http-put {
+  background-color: #F59E0B;
+  color: white;
+}
+
+.http-delete {
+  background-color: #EF4444;
+  color: white;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+
+th {
+  background-color: var(--header-bg);
+  font-weight: 600;
+  text-align: left;
+}
+
+th, td {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* Response containers */
+.response-container {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.response-header {
+  background-color: var(--header-bg);
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+/* Status codes */
+.status-code {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.status-success {
+  background-color: #D1FAE5;
+  color: var(--success-color);
+}
+
+.status-error {
+  background-color: #FEE2E2;
+  color: var(--warning-color);
+}
+
+/* Navigation */
+.nav-container {
+  position: sticky;
+  top: 2rem;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+  padding-right: 1.5rem;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-item {
+  margin-bottom: 0.5rem;
+}
+
+.nav-link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 0.95rem;
+  display: block;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+}
+
+.nav-link:hover {
+  background-color: var(--code-bg);
+}
+
+/* Callouts */
+.callout {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+  border-left: 4px solid;
+}
+
+.callout-info {
+  background-color: #EFF6FF;
+  border-left-color: var(--primary-color);
+}
+
+.callout-warning {
+  background-color: #FEF3C7;
+  border-left-color: #F59E0B;
+}
+
+/* Print styles */
+@media print {
+  body {
+    padding: 1rem;
+  }
+  
+  .nav-container {
+    display: none;
+  }
+  
+  pre, code {
+    white-space: pre-wrap;
+  }
+  
+  a {
+    text-decoration: none;
+    color: var(--text-color);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+  
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .nav-container {
+    position: static;
+    max-height: none;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+  }
+} 
+</style>
