@@ -1,186 +1,625 @@
-마지막 슬라이드를 출처 페이지로 변경한 HTML 코드는 다음과 같습니다:
-
-```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Richard Stallman</title>
+    <title>수행쌀먹 (SHSM)</title>
     <style>
+        /* 기본 스타일 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            color: white;
-            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
         }
-        .slide {
-            padding: 50px;
-            height: 100vh;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 헤더 스타일 */
+        header {
+            background-color: #fff;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            flex-direction: column;
         }
-        .slide h1 {
-            font-size: 3rem;
+
+        /* 카드 스타일 */
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
             margin-bottom: 20px;
         }
-        .slide p {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
+
+        /* 폼 스타일 */
+        .form-group {
+            margin-bottom: 1rem;
         }
-        .slide img {
-            max-width: 100%;
-            max-height: 60vh;
-            border-radius: 10px;
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
         }
-        .background-blue { background-color: #3498db; }
-        .background-green { background-color: #2ecc71; }
-        .background-red { background-color: #e74c3c; }
-        .background-purple { background-color: #9b59b6; }
-        .background-orange { background-color: #f39c12; }
-        .background-darkblue { background-color: #2980b9; }
+
+        .form-control {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* 프로젝트 목록 스타일 */
+        .project-list {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+
+        .project-item {
+            background: #fff;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* 알림 스타일 */
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* 탭 스타일 */
+        .tabs {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+
+        .tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab.active {
+            border-bottom-color: #007bff;
+            color: #007bff;
+        }
+
+        /* 로딩 스타일 */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        /* 반응형 스타일 */
+        @media (max-width: 768px) {
+            .project-list {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
+    <header>
+        <div class="container header-content">
+            <h1>수행쌀먹 (SHSM)</h1>
+            <div id="userSection">
+                <!-- 로그인 상태에 따라 동적으로 변경됨 -->
+            </div>
+        </div>
+    </header>
 
-<!-- 타이틀 카드 -->
-<div class="slide background-blue">
-    <h1>리차드 스톨만</h1>
-    <p>자유 소프트웨어 운동의 창시자이자 GNU 프로젝트의 설립자, 소프트웨어 자유에 대한 철학을 전파한 인물.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Richard_Stallman_at_LibrePlanet_2019.jpg" alt="Richard Stallman">
-</div>
+    <div class="container">
+        <div id="alertContainer"></div>
 
-<!-- 컬럼비아 대학 시절 -->
-<div class="slide background-green">
-    <h1>컬럼비아 대학 시절</h1>
-    <p>스톨만은 컬럼비아 대학에서 물리학을 공부하며 그의 학문적 여정을 시작했습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Columbia_University_Low_Memorial_Library.jpg" alt="Columbia University">
-</div>
+        <!-- 인증되지 않은 사용자를 위한 폼 -->
+        <div id="authForms">
+            <div class="tabs">
+                <button class="tab active" data-form="login">로그인</button>
+                <button class="tab" data-form="register">회원가입</button>
+            </div>
 
-<!-- 하버드 대학 시절 -->
-<div class="slide background-red">
-    <h1>하버드 대학 시절</h1>
-    <p>하버드 대학에서 공부하며, 자유 소프트웨어와 기술적 철학을 발전시켰습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Harvard_University_Widener_Library.jpg" alt="Harvard University">
-</div>
+            <!-- 로그인 폼 -->
+            <div id="loginForm" class="card">
+                <form onsubmit="return handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginEmail">이메일</label>
+                        <input type="email" id="loginEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">비밀번호</label>
+                        <input type="password" id="loginPassword" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">로그인</button>
+                </form>
+            </div>
 
-<!-- 초기 프로그래밍 경험 -->
-<div class="slide background-purple">
-    <h1>초기 프로그래밍 경험</h1>
-    <p>스톨만은 초기 컴퓨터 과학을 학습하며 프로그래밍 언어에 대한 깊은 이해를 갖추었습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/PDP-10_1090_CPU.jpg" alt="PDP-10 Computer">
-</div>
+            <!-- 회원가입 폼 -->
+            <div id="registerForm" class="card" style="display: none;">
+                <form onsubmit="return handleRegister(event)">
+                    <div class="form-group">
+                        <label for="registerEmail">이메일</label>
+                        <input type="email" id="registerEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">비밀번호</label>
+                        <input type="password" id="registerPassword" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerFullName">이름</label>
+                        <input type="text" id="registerFullName" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">회원가입</button>
+                </form>
+            </div>
+        </div>
 
-<!-- MIT AI Lab 입사 -->
-<div class="slide background-orange">
-    <h1>MIT AI Lab 입사</h1>
-    <p>스톨만은 MIT의 AI 연구소에 입사하여, 혁신적인 소프트웨어 프로젝트에 참여했습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/MIT_Stata_Center.jpg" alt="MIT Stata Center">
-</div>
+        <!-- 인증된 사용자를 위한 컨텐츠 -->
+        <div id="authenticatedContent" style="display: none;">
+            <!-- 새 프로젝트 생성 폼 -->
+            <div class="card">
+                <h2>새 프로젝트 생성</h2>
+                <form id="createProjectForm" onsubmit="return handleCreateProject(event)">
+                    <div class="form-group">
+                        <label for="projectTitle">프로젝트 제목</label>
+                        <input type="text" id="projectTitle" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="projectDescription">프로젝트 설명</label>
+                        <textarea id="projectDescription" class="form-control" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="evaluationPlan">평가계획서</label>
+                        <input type="file" id="evaluationPlan" class="form-control" 
+                               accept=".pdf,.hwp,.txt,.md,.docx">
+                    </div>
+                    <div class="form-group">
+                        <label for="submissionFormat">제출양식</label>
+                        <input type="file" id="submissionFormat" class="form-control"
+                               accept=".pdf,.hwp,.txt,.md,.docx">
+                    </div>
+                    <button type="submit" class="btn btn-primary">프로젝트 생성</button>
+                </form>
+            </div>
 
-<!-- MIT 연구실 문화 -->
-<div class="slide background-darkblue">
-    <h1>MIT 연구실 문화</h1>
-    <p>MIT에서는 자유롭고 개방적인 연구 환경이 스톨만의 철학을 더욱 강화했습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/MIT_Building_10_and_the_Great_Dome%2C_Cambridge_MA.jpg" alt="MIT Building 10">
-</div>
+            <!-- 프로젝트 목록 -->
+            <div class="card">
+                <h2>내 프로젝트</h2>
+                <div id="projectList" class="project-list">
+                    <!-- 프로젝트들이 동적으로 추가됨 -->
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- 주요 프로젝트 참여 -->
-<div class="slide background-blue">
-    <h1>주요 프로젝트 참여</h1>
-    <p>스톨만은 여러 중요한 프로그래밍 프로젝트에 참여하여 GNU 프로젝트의 기초를 다졌습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/GNU_Emacs_23.1_screenshot.png" alt="GNU Emacs">
-</div>
+    <script>
+        // API 설정
+        const API_BASE_URL = 'https://api.shsm.com/v1';
+        let currentToken = null;
 
-<!-- GNU 프로젝트 시작 배경 -->
-<div class="slide background-red">
-    <h1>GNU 프로젝트 시작 배경</h1>
-    <p>스톨만은 GNU 프로젝트를 시작하여, 자유 소프트웨어의 철학을 널리 퍼뜨렸습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Heckert_GNU_white.svg" alt="GNU Logo">
-</div>
+        // 유틸리티 함수
+        function showAlert(message, type = 'error') {
+            const alertContainer = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alertContainer.appendChild(alert);
+            setTimeout(() => alert.remove(), 5000);
+        }
 
-<!-- GNU 프로젝트 주요 성과 -->
-<div class="slide background-purple">
-    <h1>GNU 프로젝트 주요 성과</h1>
-    <p>GNU 프로젝트는 여러 중요한 소프트웨어를 개발하고, 자유 소프트웨어 운동의 기초를 놓았습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/The_GNU_logo.png" alt="GNU Logo">
-</div>
+        function updateAuthUI(isAuthenticated) {
+            const authForms = document.getElementById('authForms');
+            const authenticatedContent = document.getElementById('authenticatedContent');
+            const userSection = document.getElementById('userSection');
 
-<!-- GNU 협력 모델 -->
-<div class="slide background-darkblue">
-    <h1>GNU 협력 모델</h1>
-    <p>GNU 프로젝트는 협력적 모델을 통해 세계 각지에서 자유 소프트웨어 개발을 촉진했습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Opensource.svg" alt="Open Source">
-</div>
+            if (isAuthenticated) {
+                authForms.style.display = 'none';
+                authenticatedContent.style.display = 'block';
+                userSection.innerHTML = `
+                    <button onclick="handleLogout()" class="btn btn-danger">로그아웃</button>
+                `;
+                fetchProjects();
+            } else {
+                authForms.style.display = 'block';
+                authenticatedContent.style.display = 'none';
+                userSection.innerHTML = '';
+            }
+        }
 
-<!-- 자유 소프트웨어의 4가지 자유 -->
-<div class="slide background-green">
-    <h1>자유 소프트웨어의 4가지 자유</h1>
-    <p>자유 소프트웨어는 네 가지 자유를 통해, 사용자에게 최대한의 자유를 보장합니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Free_Software_Foundation_logo_and_wordmark.svg" alt="FSF Logo">
-</div>
+        // 파일 처리 함수
+        function handleFileUpload(file) {
+            return new Promise((resolve, reject) => {
+                if (!file) {
+                    resolve(null);
+                    return;
+                }
 
-<!-- 오픈소스와의 차이점 -->
-<div class="slide background-red">
-    <h1>오픈소스와의 차이점</h1>
-    <p>자유 소프트웨어는 단순히 소스 코드가 공개된 것 이상의 철학적 차이를 지니고 있습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Opensource.svg" alt="Open Source Logo">
-</div>
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    resolve({
+                        content: e.target.result,
+                        name: file.name,
+                        type: file.type
+                    });
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
 
-<!-- FSF 설립과 활동 -->
-<div class="slide background-purple">
-    <h1>FSF 설립과 활동</h1>
-    <p>스톨만은 자유 소프트웨어 재단(FSF)을 설립하여, 자유 소프트웨어 운동을 조직적으로 이끌었습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Free_Software_Foundation_logo_and_wordmark.svg" alt="FSF Logo">
-</div>
+        // 인증 관련 함수들
+        async function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
 
-<!-- GPL 라이선스 개발 -->
-<div class="slide background-orange">
-    <h1>GPL 라이선스 개발</h1>
-    <p>GNU 일반 공공 라이선스(GPL)는 자유 소프트웨어의 핵심 법적 도구로 자리 잡았습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/GPLv3_Logo.svg" alt="GPL Logo">
-</div>
+            try {
+                const response = await fetch(`${API_BASE_URL}/token`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `username=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+                });
 
-<!-- Copyleft 개념의 혁신 -->
-<div class="slide background-darkblue">
-    <h1>Copyleft 개념의 혁신</h1>
-    <p>Copyleft는 자유 소프트웨어의 핵심 철학으로, 소프트웨어를 자유롭게 사용하고 수정할 수 있는 권리를 제공합니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Copyleft.svg" alt="Copyleft">
-</div>
+                const data = await response.json();
+                if (response.ok) {
+                    currentToken = data.access_token;
+                    localStorage.setItem('token', currentToken);
+                    updateAuthUI(true);
+                    showAlert('로그인 성공!', 'success');
+                } else {
+                    showAlert(data.detail);
+                }
+            } catch (error) {
+                showAlert('로그인 중 오류가 발생했습니다.');
+            }
+        }
 
-<!-- 소프트웨어 특허 비판 -->
-<div class="slide background-green">
-    <h1>소프트웨어 특허 비판</h1>
-    <p>스톨만은 소프트웨어 특허가 자유 소프트웨어 개발을 저해한다고 비판했습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Software_patents_and_free_software.svg" alt="Software Patents">
-</div>
+        async function handleRegister(event) {
+            event.preventDefault();
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const fullName = document.getElementById('registerFullName').value;
 
-<!-- 디지털 권리와 프라이버시 -->
-<div class="slide background-blue">
-    <h1>디지털 권리와 프라이버시</h1>
-    <p>스톨만은 디지털 권리와 개인정보 보호의 중요성에 대해 지속적으로 경고했습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Digital_rights_management_conceptual_diagram_%28en%29.svg" alt="Digital Rights Management">
+            try {
+                const response = await fetch(`${API_BASE_URL}/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password, full_name: fullName })
+                });
 
+                const data = await response.json();
+                if (response.ok) {
+                    currentToken = data.access_token;
+                    localStorage.setItem('token', currentToken);
+                    updateAuthUI(true);
+                    showAlert('회원가입 성공!', 'success');
+                } else {
+                    showAlert(data.detail);
+                }
+            } catch (error) {
+                showAlert('회원가입 중 오류가 발생했습니다.');
+            }
+        }
 
-</div>
+        function handleLogout() {
+            currentToken = null;
+            localStorage.removeItem('token');
+            updateAuthUI(false);
+            showAlert('로그아웃되었습니다.', 'success');
+        }
 
-<!-- 전세계 강연 활동 -->
-<div class="slide background-red">
-    <h1>전세계 강연 활동</h1>
-    <p>스톨만은 전 세계적으로 강연을 통해 자유 소프트웨어의 철학을 널리 알렸습니다.</p>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Richard_Stallman_-_Fête_de_l%27Humanité_2014_-_010.jpg" alt="Richard Stallman at Fête de l'Humanité">
-</div>
+        // 프로젝트 관련 함수들
+        async function handleCreateProject(event) {
+            event.preventDefault();
+            const title = document.getElementById('projectTitle').value;
+            const description = document.getElementById('projectDescription').value;
+            const evaluationPlanFile = document.getElementById('evaluationPlan').files[0];
+            const submissionFormatFile = document.getElementById('submissionFormat').files[0];
 
-<!-- 출처 -->
-<div class="slide background-orange">
-    <h1>출처</h1>
-    <p>모든 이미지와 정보는 위키백과에서 제공되었습니다. 관련 페이지를 참조하십시오.</p>
-    <a href="https://ko.wikipedia.org/wiki/%EB%A6%AC%EC%B0%AC_%EC%8A%A4%ED%86%A8%EB%A7%8C" target="_blank" style="color:white; font-size: 1.5rem;">리차드 스톨만 - 위키백과</a>
-</div>
+            try {
+                const [evaluationPlan, submissionFormat] = await Promise.all([
+                    handleFileUpload(evaluationPlanFile),
+                    handleFileUpload(submissionFormatFile)
+                ]);
 
+                const response = await fetch(`${API_BASE_URL}/projects/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${currentToken}`
+                    },
+                    body: JSON.stringify({
+                        title,
+                        description,
+                        evaluation_plan: evaluationPlan,
+                        submission_format: submissionFormat,
+                        metadata: {}
+                    })
+                });
+
+                if (response.ok) {
+                    showAlert('프로젝트가 생성되었습니다!', 'success');
+                    event.target.reset();
+                    fetchProjects();
+                } else {
+                    const data = await response.json();
+                    showAlert(data.detail);
+                }
+            } catch (error) {
+                showAlert('프로젝트 생성 중 오류가 발생했습니다.');
+            }
+        }
+
+        async function fetchProjects() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/projects/`, {
+                    headers: {
+                        'Authorization': `Bearer ${currentToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    const projects = await response.json();
+                    const projectList = document.getElementById('projectList');
+                    projectList.innerHTML = projects.map(project => `
+                        <div class="project-item">
+                            <h3>${project.title}</h3>
+                            <p>${project.description}</p>
+                            <p class="text-sm">생성일: ${new Date(project.created_at).toLocaleDateString()}</p>
+                            <div class="project-actions">
+                                <button onclick="showProjectDetails(${project.id})" class="btn btn-primary">상세보기</button>
+                                <button onclick="searchReferences(${project.id})" class="btn btn-primary">참고자료 검색</button>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    const data = await response.json();
+                    showAlert(data.detail);
+                }
+            } catch (error) {
+                showAlert('프로젝트 목록을 불러오는 중 오류가 발생했습니다.');
+            }
+        }
+
+        // 프로젝트 상세 정보 표시
+        async function showProjectDetails(projectId) {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content card">
+                    <h2>프로젝트 상세 정보</h2>
+                    <div id="projectDetails">로딩 중...</div>
+                    <button onclick="this.parentElement.parentElement.remove()" class="btn btn-primary">닫기</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/projects/${projectId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${currentToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    const project = await response.json();
+                    document.getElementById('projectDetails').innerHTML = `
+                        <div class="form-group">
+                            <label>제목</label>
+                            <p>${project.title}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>설명</label>
+                            <p>${project.description}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>평가계획서</label>
+                            ${project.evaluation_plan ? 
+                                `<a href="${project.evaluation_plan}" class="btn btn-primary">다운로드</a>` : 
+                                '<p>파일 없음</p>'}
+                        </div>
+                        <div class="form-group">
+                            <label>제출양식</label>
+                            ${project.submission_format ? 
+                                `<a href="${project.submission_format}" class="btn btn-primary">다운로드</a>` : 
+                                '<p>파일 없음</p>'}
+                        </div>
+                    `;
+                } else {
+                    const data = await response.json();
+                    showAlert(data.detail);
+                }
+            } catch (error) {
+                showAlert('프로젝트 상세 정보를 불러오는 중 오류가 발생했습니다.');
+            }
+        }
+
+        // 참고자료 검색
+        async function searchReferences(projectId) {
+            const searchModal = document.createElement('div');
+            searchModal.className = 'modal';
+            searchModal.innerHTML = `
+                <div class="modal-content card">
+                    <h2>참고자료 검색</h2>
+                    <form id="referenceSearchForm" onsubmit="return handleReferenceSearch(event, ${projectId})">
+                        <div class="form-group">
+                            <label for="searchKeywords">검색 키워드</label>
+                            <input type="text" id="searchKeywords" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">검색</button>
+                    </form>
+                    <div id="searchResults"></div>
+                    <button onclick="this.parentElement.parentElement.remove()" class="btn btn-primary">닫기</button>
+                </div>
+            `;
+            document.body.appendChild(searchModal);
+        }
+
+        async function handleReferenceSearch(event, projectId) {
+            event.preventDefault();
+            const keywords = document.getElementById('searchKeywords').value.split(',').map(k => k.trim());
+            const searchResults = document.getElementById('searchResults');
+            searchResults.innerHTML = '<div class="loading show">검색 중...</div>';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/references/search?project_id=${projectId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${currentToken}`
+                    },
+                    body: JSON.stringify({ keywords })
+                });
+
+                if (response.ok) {
+                    const references = await response.json();
+                    searchResults.innerHTML = references.length ? references.map(ref => `
+                        <div class="reference-item card">
+                            <h3>${ref.title}</h3>
+                            <p>저자: ${ref.authors.join(', ')}</p>
+                            <p>출판일: ${new Date(ref.publication_date).toLocaleDateString()}</p>
+                            <p>${ref.content}</p>
+                        </div>
+                    `).join('') : '<p>검색 결과가 없습니다.</p>';
+                } else {
+                    const data = await response.json();
+                    showAlert(data.detail);
+                }
+            } catch (error) {
+                showAlert('참고자료 검색 중 오류가 발생했습니다.');
+            }
+        }
+
+        // 초기화 및 이벤트 리스너
+        document.addEventListener('DOMContentLoaded', () => {
+            // 탭 전환 이벤트 리스너
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    const formType = tab.dataset.form;
+                    document.getElementById('loginForm').style.display = formType === 'login' ? 'block' : 'none';
+                    document.getElementById('registerForm').style.display = formType === 'register' ? 'block' : 'none';
+                });
+            });
+
+            // 저장된 토큰으로 자동 로그인
+            const savedToken = localStorage.getItem('token');
+            if (savedToken) {
+                currentToken = savedToken;
+                updateAuthUI(true);
+            }
+
+            // 추가 스타일 삽입
+            const additionalStyles = document.createElement('style');
+            additionalStyles.textContent = `
+                .modal {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.5);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                }
+
+                .modal-content {
+                    background: white;
+                    padding: 2rem;
+                    border-radius: 8px;
+                    max-width: 500px;
+                    width: 90%;
+                    max-height: 90vh;
+                    overflow-y: auto;
+                }
+
+                .reference-item {
+                    margin-bottom: 1rem;
+                    padding: 1rem;
+                }
+
+                .project-actions {
+                    display: flex;
+                    gap: 0.5rem;
+                    margin-top: 1rem;
+                }
+
+                .btn + .btn {
+                    margin-left: 0.5rem;
+                }
+            `;
+            document.head.appendChild(additionalStyles);
+        });
+    </script>
 </body>
 </html>
-```
-
-여기서 마지막 슬라이드는 "출처" 페이지로 변경되었고, 위키백과의 리차드 스톨만 페이지로 연결되는 링크가 포함되었습니다.
