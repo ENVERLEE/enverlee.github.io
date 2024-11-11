@@ -1,0 +1,283 @@
+<h1 id="research-platform-api-reference">Research Platform API Reference</h1>
+<h2 id="overview">Overview</h2>
+<p>이 API는 연구 프로젝트 관리 및 참고 문헌 검색을 위한 엔드포인트를 제공합니다. 모든 API 요청은 인증이 필요하며, Bearer 토큰을 통해 인증됩니다.</p>
+<h2 id="base-url">Base URL</h2>
+<pre><code><span class="hljs-symbol">https:</span><span class="hljs-comment">//api.example.com/api</span>
+</code></pre><h2 id="authentication">Authentication</h2>
+<h3 id="register-new-user">Register New User</h3>
+<pre><code class="lang-http">POST /<span class="hljs-keyword">register</span>
+</code></pre>
+<p>새로운 사용자 계정을 생성합니다.</p>
+<h4 id="request-body">Request Body</h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>email</td>
+<td>string</td>
+<td>사용자의 이메일 주소</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>사용자 비밀번호</td>
+</tr>
+<tr>
+<td>full_name</td>
+<td>string</td>
+<td>사용자의 실명</td>
+</tr>
+</tbody>
+</table>
+<h4 id="response">Response</h4>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"access_token"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"token_type"</span>: <span class="hljs-string">"bearer"</span>
+}
+</code></pre>
+<h3 id="login">Login</h3>
+<pre><code class="lang-http"><span class="hljs-keyword">POST</span> /<span class="hljs-keyword">token</span>
+</code></pre>
+<p>기존 사용자 로그인을 위한 엔드포인트입니다.</p>
+<h4 id="request-body">Request Body</h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>string</td>
+<td>사용자 이메일</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>사용자 비밀번호</td>
+</tr>
+</tbody>
+</table>
+<h4 id="response">Response</h4>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"access_token"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"token_type"</span>: <span class="hljs-string">"bearer"</span>
+}
+</code></pre>
+<h2 id="projects">Projects</h2>
+<h3 id="create-project">Create Project</h3>
+<pre><code class="lang-http">POST <span class="hljs-regexp">/projects/</span>
+</code></pre>
+<p>새로운 연구 프로젝트를 생성합니다.</p>
+<h4 id="request-body">Request Body</h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>프로젝트 제목</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>프로젝트 설명</td>
+</tr>
+<tr>
+<td>evaluation_plan</td>
+<td>string</td>
+<td>평가 계획</td>
+</tr>
+<tr>
+<td>submission_format</td>
+<td>string</td>
+<td>제출 형식</td>
+</tr>
+<tr>
+<td>metadata1</td>
+<td>object</td>
+<td>추가 메타데이터 (선택사항)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="response">Response</h4>
+<pre><code class="lang-json">{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"status"</span>: <span class="hljs-string">"string"</span>
+}
+</code></pre>
+<h3 id="list-projects">List Projects</h3>
+<pre><code class="lang-http">GET <span class="hljs-regexp">/projects/</span>
+</code></pre>
+<p>현재 사용자의 모든 프로젝트를 조회합니다.</p>
+<h4 id="response">Response</h4>
+<pre><code class="lang-json">[
+    {
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">0</span>,
+        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>,
+        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"string"</span>,
+        <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"string"</span>,
+        <span class="hljs-attr">"status"</span>: <span class="hljs-string">"string"</span>
+    }
+]
+</code></pre>
+<h3 id="execute-project-step">Execute Project Step</h3>
+<pre><code class="lang-http">POST <span class="hljs-regexp">/projects/</span>{project_id}<span class="hljs-regexp">/steps/</span>{step_number}<span class="hljs-regexp">/execute</span>
+</code></pre>
+<p>프로젝트의 특정 단계를 실행합니다.</p>
+<h4 id="path-parameters">Path Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>project_id</td>
+<td>integer</td>
+<td>프로젝트 ID</td>
+</tr>
+<tr>
+<td>step_number</td>
+<td>integer</td>
+<td>실행할 단계 번호</td>
+</tr>
+</tbody>
+</table>
+<h2 id="references">References</h2>
+<h3 id="search-references">Search References</h3>
+<pre><code class="lang-http"><span class="hljs-keyword">POST</span> /references/<span class="hljs-keyword">search</span>?project_id={project_id}
+</code></pre>
+<p>키워드를 기반으로 참고 문헌을 검색합니다.</p>
+<h4 id="query-parameters">Query Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>project_id</td>
+<td>integer</td>
+<td>프로젝트 ID</td>
+</tr>
+</tbody>
+</table>
+<h4 id="request-body">Request Body</h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>keywords</td>
+<td>array[string]</td>
+<td>검색 키워드 목록</td>
+</tr>
+</tbody>
+</table>
+<h4 id="response">Response</h4>
+<pre><code class="lang-json">[
+    {
+        <span class="hljs-attr">"id"</span>: <span class="hljs-number">0</span>,
+        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>,
+        <span class="hljs-attr">"authors"</span>: [<span class="hljs-string">"string"</span>],
+        <span class="hljs-attr">"publication_date"</span>: <span class="hljs-string">"string"</span>,
+        <span class="hljs-attr">"content"</span>: <span class="hljs-string">"string"</span>,
+        <span class="hljs-attr">"metadata1"</span>: {}
+    }
+]
+</code></pre>
+<h3 id="get-reference-summary">Get Reference Summary</h3>
+<pre><code class="lang-http">GET <span class="hljs-regexp">/references/</span>{reference_id}<span class="hljs-regexp">/summary</span>
+</code></pre>
+<p>특정 참고 문헌의 요약을 조회합니다.</p>
+<h4 id="path-parameters">Path Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>reference_id</td>
+<td>integer</td>
+<td>참고 문헌 ID</td>
+</tr>
+</tbody>
+</table>
+<h2 id="-">오류 응답</h2>
+<p>이 API는 다음과 같은 HTTP 상태 코드를 반환할 수 있습니다:</p>
+<table>
+<thead>
+<tr>
+<th>Status Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>요청 성공</td>
+</tr>
+<tr>
+<td>400</td>
+<td>잘못된 요청 (예: 이미 등록된 이메일)</td>
+</tr>
+<tr>
+<td>401</td>
+<td>인증 실패</td>
+</tr>
+<tr>
+<td>404</td>
+<td>리소스를 찾을 수 없음</td>
+</tr>
+<tr>
+<td>500</td>
+<td>서버 내부 오류</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rate-limiting">Rate Limiting</h2>
+<p>모든 API 엔드포인트는 rate limiting이 적용됩니다:</p>
+<ul>
+<li>인증된 사용자: 분당 100 요청</li>
+<li>미인증 사용자: 분당 10 요청</li>
+</ul>
+<h2 id="security">Security</h2>
+<ul>
+<li>모든 API 통신은 HTTPS를 통해 이루어집니다.</li>
+<li>액세스 토큰은 발급 후 일정 시간이 지나면 만료됩니다.</li>
+<li>민감한 데이터는 전송 시 항상 암호화됩니다.</li>
+</ul>
