@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>수행쌀먹 (SHSM)</title>
+    <title>연구 플랫폼</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
     <style>
-        /* 기본 스타일 */
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Noto Sans KR', sans-serif;
             line-height: 1.6;
             color: #333;
             background-color: #f5f5f5;
@@ -25,601 +25,658 @@
             padding: 20px;
         }
 
-        /* 헤더 스타일 */
-        header {
+        .header {
             background-color: #fff;
             padding: 1rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
         }
 
-        .header-content {
+        .nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* 카드 스타일 */
-        .card {
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .auth-section {
+            display: none;
+            padding: 2rem;
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 2rem;
         }
 
-        /* 폼 스타일 */
+        .main-content {
+            display: none;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 2rem;
+        }
+
         .form-group {
             margin-bottom: 1rem;
         }
 
-        .form-group label {
+        label {
             display: block;
             margin-bottom: 0.5rem;
-            font-weight: 600;
+            font-weight: bold;
         }
 
-        .form-control {
+        input, textarea {
             width: 100%;
             padding: 0.5rem;
             border: 1px solid #ddd;
             border-radius: 4px;
-            font-size: 1rem;
+            margin-bottom: 1rem;
         }
 
-        .btn {
+        button {
+            background-color: #3498db;
+            color: white;
             padding: 0.5rem 1rem;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 1rem;
             transition: background-color 0.3s;
         }
 
-        .btn-primary {
-            background-color: #007bff;
-            color: white;
+        button:hover {
+            background-color: #2980b9;
         }
 
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        /* 프로젝트 목록 스타일 */
         .project-list {
             display: grid;
-            gap: 1rem;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
-        .project-item {
+        .project-card {
             background: #fff;
+            border: 1px solid #ddd;
             border-radius: 8px;
             padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
         }
 
-        /* 알림 스타일 */
-        .alert {
+        .project-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .reference-list {
+            margin-top: 1rem;
+        }
+
+        .reference-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
             padding: 1rem;
-            border-radius: 4px;
             margin-bottom: 1rem;
         }
 
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        /* 탭 스타일 */
-        .tabs {
+        .auth-tabs {
             display: flex;
             margin-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
         }
 
-        .tab {
+        .auth-tab {
             padding: 0.5rem 1rem;
             cursor: pointer;
             border: none;
             background: none;
-            border-bottom: 2px solid transparent;
+            color: #666;
+            margin-right: 1rem;
         }
 
-        .tab.active {
-            border-bottom-color: #007bff;
-            color: #007bff;
+        .auth-tab.active {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
         }
 
-        /* 로딩 스타일 */
-        .loading {
+        .auth-form {
             display: none;
-            text-align: center;
-            padding: 1rem;
         }
 
-        .loading.show {
+        .auth-form.active {
             display: block;
         }
 
-        /* 반응형 스타일 */
+        .main-tabs {
+            display: flex;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .main-tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: #666;
+            margin-right: 1rem;
+        }
+
+        .main-tab.active {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .main-content-section {
+            display: none;
+        }
+
+        .main-content-section.active {
+            display: block;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255,255,255,0.9);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1100;
+        }
+
         @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
             .project-list {
                 grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container header-content">
-            <h1>수행쌀먹 (SHSM)</h1>
-            <div id="userSection">
-                <!-- 로그인 상태에 따라 동적으로 변경됨 -->
-            </div>
-        </div>
-    </header>
-
-    <div class="container">
-        <div id="alertContainer"></div>
-
-        <!-- 인증되지 않은 사용자를 위한 폼 -->
-        <div id="authForms">
-            <div class="tabs">
-                <button class="tab active" data-form="login">로그인</button>
-                <button class="tab" data-form="register">회원가입</button>
-            </div>
-
-            <!-- 로그인 폼 -->
-            <div id="loginForm" class="card">
-                <form onsubmit="return handleLogin(event)">
-                    <div class="form-group">
-                        <label for="loginEmail">이메일</label>
-                        <input type="email" id="loginEmail" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="loginPassword">비밀번호</label>
-                        <input type="password" id="loginPassword" class="form-control" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">로그인</button>
-                </form>
-            </div>
-
-            <!-- 회원가입 폼 -->
-            <div id="registerForm" class="card" style="display: none;">
-                <form onsubmit="return handleRegister(event)">
-                    <div class="form-group">
-                        <label for="registerEmail">이메일</label>
-                        <input type="email" id="registerEmail" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="registerPassword">비밀번호</label>
-                        <input type="password" id="registerPassword" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="registerFullName">이름</label>
-                        <input type="text" id="registerFullName" class="form-control" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">회원가입</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- 인증된 사용자를 위한 컨텐츠 -->
-        <div id="authenticatedContent" style="display: none;">
-            <!-- 새 프로젝트 생성 폼 -->
-            <div class="card">
-                <h2>새 프로젝트 생성</h2>
-                <form id="createProjectForm" onsubmit="return handleCreateProject(event)">
-                    <div class="form-group">
-                        <label for="projectTitle">프로젝트 제목</label>
-                        <input type="text" id="projectTitle" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="projectDescription">프로젝트 설명</label>
-                        <textarea id="projectDescription" class="form-control" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="evaluationPlan">평가계획서</label>
-                        <input type="file" id="evaluationPlan" class="form-control" 
-                               accept=".pdf,.hwp,.txt,.md,.docx">
-                    </div>
-                    <div class="form-group">
-                        <label for="submissionFormat">제출양식</label>
-                        <input type="file" id="submissionFormat" class="form-control"
-                               accept=".pdf,.hwp,.txt,.md,.docx">
-                    </div>
-                    <button type="submit" class="btn btn-primary">프로젝트 생성</button>
-                </form>
-            </div>
-
-            <!-- 프로젝트 목록 -->
-            <div class="card">
-                <h2>내 프로젝트</h2>
-                <div id="projectList" class="project-list">
-                    <!-- 프로젝트들이 동적으로 추가됨 -->
-                </div>
+    <div class="header">
+        <div class="nav container">
+            <div class="logo">연구 플랫폼</div>
+            <div class="user-info">
+                <span id="userEmail"></span>
+                <button id="logoutBtn" style="display: none;">로그아웃</button>
             </div>
         </div>
     </div>
 
+    <div class="container">
+        <div id="authSection" class="auth-section">
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-form="login">로그인</button>
+                <button class="auth-tab" data-form="register">회원가입</button>
+            </div>
+
+            <div id="loginForm" class="auth-form active">
+                <h2>로그인</h2>
+                <div class="form-group">
+                    <label>이메일</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>비밀번호</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button id="loginBtn">로그인</button>
+            </div>
+
+            <div id="registerForm" class="auth-form">
+                <h2>회원가입</h2>
+                <div class="form-group">
+                    <label>이메일</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>비밀번호</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label>이름</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <button id="registerBtn">회원가입</button>
+            </div>
+        </div>
+
+        <div id="mainContent" class="main-content">
+            <div class="main-tabs">
+                <button class="main-tab active" data-section="projects">프로젝트</button>
+                <button class="main-tab" data-section="references">참고문헌</button>
+            </div>
+
+            <div id="projectsSection" class="main-content-section active">
+                <button id="newProjectBtn">새 프로젝트 생성</button>
+                <div id="projectList" class="project-list"></div>
+            </div>
+
+            <div id="referencesSection" class="main-content-section">
+                <div class="form-group">
+                    <label>키워드 검색</label>
+                    <input type="text" id="searchKeywords" placeholder="키워드를 입력하세요">
+                    <button id="searchReferencesBtn">검색</button>
+                </div>
+                <div id="referenceList" class="reference-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="newProjectModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2>새 프로젝트</h2>
+            <div class="form-group">
+                <label>제목</label>
+                <input type="text" id="projectTitle" required>
+            </div>
+            <div class="form-group">
+                <label>설명</label>
+                <textarea id="projectDescription" required></textarea>
+            </div>
+            <div class="form-group">
+                <label>평가 계획</label>
+                <textarea id="evaluationPlan" required></textarea>
+            </div>
+            <div class="form-group">
+                <label>제출 형식</label>
+                <textarea id="submissionFormat" required></textarea>
+            </div>
+            <button id="createProjectBtn">프로젝트 생성</button>
+        </div>
+    </div>
+
+    <div id="loading" class="loading">처리 중...</div>
+
     <script>
-        // API 설정
-        const API_BASE_URL = 'https://api.shsm.com/v1';
-        let currentToken = null;
+        const API_BASE_URL = 'https://research-automation-system.fly.dev/api';
+        let currentUser = null;
+        let accessToken = null;
 
-        // 유틸리티 함수
-        function showAlert(message, type = 'error') {
-            const alertContainer = document.getElementById('alertContainer');
-            const alert = document.createElement('div');
-            alert.className = `alert alert-${type}`;
-            alert.textContent = message;
-            alertContainer.appendChild(alert);
-            setTimeout(() => alert.remove(), 5000);
-        }
+        // Axios 설정
+        const api = axios.create({
+            baseURL: API_BASE_URL,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
 
-        function updateAuthUI(isAuthenticated) {
-            const authForms = document.getElementById('authForms');
-            const authenticatedContent = document.getElementById('authenticatedContent');
-            const userSection = document.getElementById('userSection');
+        // 토큰 설정
+        const setAuthToken = (token) => {
+            accessToken = token;
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            localStorage.setItem('token', token);
+        };
 
-            if (isAuthenticated) {
-                authForms.style.display = 'none';
-                authenticatedContent.style.display = 'block';
-                userSection.innerHTML = `
-                    <button onclick="handleLogout()" class="btn btn-danger">로그아웃</button>
-                `;
-                fetchProjects();
+        // 로딩 표시 함수
+        const showLoading = () => {
+            document.getElementById('loading').style.display = 'block';
+        };
+
+        const hideLoading = () => {
+            document.getElementById('loading').style.display = 'none';
+        };
+
+        // 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                setAuthToken(token);
+                showMainContent();
+                loadProjects();
             } else {
-                authForms.style.display = 'block';
-                authenticatedContent.style.display = 'none';
-                userSection.innerHTML = '';
+                showAuthSection();
             }
-        }
 
-        // 파일 처리 함수
-        function handleFileUpload(file) {
-            return new Promise((resolve, reject) => {
-                if (!file) {
-                    resolve(null);
-                    return;
-                }
+            setupEventListeners();
+        });
 
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    resolve({
-                        content: e.target.result,
-                        name: file.name,
-                        type: file.type
-                    });
-                };
-                reader.onerror = reject;
-                reader.readAsDataURL(file);
+        // 이벤트 리스너 설정
+        function setupEventListeners() {
+            // 인증 탭 전환
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+                    
+                    e.target.classList.add('active');
+                    const formId = `${e.target.dataset.form}Form`;
+                    document.getElementById(formId).classList.add('active');
+                });
             });
+
+            // 메인 탭 전환
+            document.querySelectorAll('.main-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.main-content-section').forEach(s => s.classList.remove('active'));
+                    
+                    e.target.classList.add('active');
+                    const sectionId = `${e.target.dataset.section}Section`;
+                    document.getElementById(sectionId).classList.add('active');
+                });
+            });
+
+            // 인증 관련
+            document.getElementById('loginBtn').addEventListener('click', handleLogin);
+            document.getElementById('registerBtn').addEventListener('click', handleRegister);
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+
+            // 프로젝트 관련
+            document.getElementById('newProjectBtn').addEventListener('click', () => {
+                document.getElementById('newProjectModal').style.display = 'block';
+            });
+
+            document.getElementById('createProjectBtn').addEventListener('click', handleCreateProject);
+
+            // 모달 닫기
+            document.querySelectorAll('.modal-close').forEach(close => {
+                close.addEventListener('click', (e) => {
+                    e.target.closest('.modal').style.display = 'none';
+                });
+            });
+
+            // 참고문헌 검색
+            document.getElementById('searchReferencesBtn').addEventListener('click', handleReferenceSearch);
         }
 
-        // 인증 관련 함수들
-        async function handleLogin(event) {
-            event.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
+        // 화면 전환 함수
+        function showAuthSection() {
+            document.getElementById('authSection').style.display = 'block';
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'none';
+        }
 
+        function showMainContent() {
+            document.getElementById('authSection').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('logoutBtn').style.display = 'block';
+        }
+
+        // API 호출 함수들
+        async function handleLogin() {
             try {
-                const response = await fetch(`${API_BASE_URL}/token`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `username=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+                showLoading();
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+
+                const response = await api.post('/token', {
+                    username: email,
+                    password: password
                 });
 
-                const data = await response.json();
-                if (response.ok) {
-                    currentToken = data.access_token;
-                    localStorage.setItem('token', currentToken);
-                    updateAuthUI(true);
-                    showAlert('로그인 성공!', 'success');
-                } else {
-                    showAlert(data.detail);
-                }
+                setAuthToken(response.data.access_token);
+                currentUser = email;
+                document.getElementById('userEmail').textContent = email;
+                showMainContent();
+                loadProjects();
             } catch (error) {
-                showAlert('로그인 중 오류가 발생했습니다.');
+                alert('로그인 실패: ' + (error.response?.data?.message || '알 수 없는 오류가 발생했습니다.'));
+            } finally {
+                hideLoading();
             }
         }
 
-        async function handleRegister(event) {
-            event.preventDefault();
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-            const fullName = document.getElementById('registerFullName').value;
-
+        async function handleRegister() {
             try {
-                const response = await fetch(`${API_BASE_URL}/register`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email, password, full_name: fullName })
+                showLoading();
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+                const fullName = document.getElementById('registerName').value;
+
+                const response = await api.post('/register', {
+                    email,
+                    password,
+                    full_name: fullName
                 });
 
-                const data = await response.json();
-                if (response.ok) {
-                    currentToken = data.access_token;
-                    localStorage.setItem('token', currentToken);
-                    updateAuthUI(true);
-                    showAlert('회원가입 성공!', 'success');
-                } else {
-                    showAlert(data.detail);
-                }
+                setAuthToken(response.data.access_token);
+                currentUser = email;
+                document.getElementById('userEmail').textContent = email;
+                showMainContent();
+                loadProjects();
             } catch (error) {
-                showAlert('회원가입 중 오류가 발생했습니다.');
+                alert('회원가입 실패: ' + (error.response?.data?.message || '알 수 없는 오류가 발생했습니다.'));
+            } finally {
+                hideLoading();
             }
         }
 
         function handleLogout() {
-            currentToken = null;
             localStorage.removeItem('token');
-            updateAuthUI(false);
-            showAlert('로그아웃되었습니다.', 'success');
+            accessToken = null;
+            currentUser = null;
+            api.defaults.headers.common['Authorization'] = '';
+            document.getElementById('userEmail').textContent = '';
+            showAuthSection();
         }
 
-        // 프로젝트 관련 함수들
-        async function handleCreateProject(event) {
-            event.preventDefault();
-            const title = document.getElementById('projectTitle').value;
-            const description = document.getElementById('projectDescription').value;
-            const evaluationPlanFile = document.getElementById('evaluationPlan').files[0];
-            const submissionFormatFile = document.getElementById('submissionFormat').files[0];
-
+        async function handleCreateProject() {
             try {
-                const [evaluationPlan, submissionFormat] = await Promise.all([
-                    handleFileUpload(evaluationPlanFile),
-                    handleFileUpload(submissionFormatFile)
-                ]);
+                showLoading();
+                const title = document.getElementById('projectTitle').value;
+                const description = document.getElementById('projectDescription').value;
+                const evaluationPlan = document.getElementById('evaluationPlan').value;
+                const submissionFormat = document.getElementById('submissionFormat').value;
 
-                const response = await fetch(`${API_BASE_URL}/projects/`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${currentToken}`
-                    },
-                    body: JSON.stringify({
-                        title,
-                        description,
-                        evaluation_plan: evaluationPlan,
-                        submission_format: submissionFormat,
-                        metadata: {}
-                    })
+                const response = await api.post('/projects/', {
+                    title,
+                    description,
+                    evaluation_plan: evaluationPlan,
+                    submission_format: submissionFormat
                 });
 
-                if (response.ok) {
-                    showAlert('프로젝트가 생성되었습니다!', 'success');
-                    event.target.reset();
-                    fetchProjects();
-                } else {
-                    const data = await response.json();
-                    showAlert(data.detail);
-                }
+                document.getElementById('newProjectModal').style.display = 'none';
+                // 폼 초기화
+                document.getElementById('projectTitle').value = '';
+                document.getElementById('projectDescription').value = '';
+                document.getElementById('evaluationPlan').value = '';
+                document.getElementById('submissionFormat').value = '';
+                
+                await loadProjects();
             } catch (error) {
-                showAlert('프로젝트 생성 중 오류가 발생했습니다.');
+                alert('프로젝트 생성 실패: ' + (error.response?.data?.message || '알 수 없는 오류가 발생했습니다.'));
+            } finally {
+                hideLoading();
             }
         }
 
-        async function fetchProjects() {
+        async function loadProjects() {
             try {
-                const response = await fetch(`${API_BASE_URL}/projects/`, {
-                    headers: {
-                        'Authorization': `Bearer ${currentToken}`
-                    }
-                });
+                showLoading();
+                const response = await api.get('/projects/');
+                const projectList = document.getElementById('projectList');
+                projectList.innerHTML = '';
 
-                if (response.ok) {
-                    const projects = await response.json();
-                    const projectList = document.getElementById('projectList');
-                    projectList.innerHTML = projects.map(project => `
-                        <div class="project-item">
-                            <h3>${project.title}</h3>
-                            <p>${project.description}</p>
-                            <p class="text-sm">생성일: ${new Date(project.created_at).toLocaleDateString()}</p>
-                            <div class="project-actions">
-                                <button onclick="showProjectDetails(${project.id})" class="btn btn-primary">상세보기</button>
-                                <button onclick="searchReferences(${project.id})" class="btn btn-primary">참고자료 검색</button>
-                            </div>
-                        </div>
-                    `).join('');
-                } else {
-                    const data = await response.json();
-                    showAlert(data.detail);
-                }
-            } catch (error) {
-                showAlert('프로젝트 목록을 불러오는 중 오류가 발생했습니다.');
-            }
-        }
-
-        // 프로젝트 상세 정보 표시
-        async function showProjectDetails(projectId) {
-            const modal = document.createElement('div');
-            modal.className = 'modal';
-            modal.innerHTML = `
-                <div class="modal-content card">
-                    <h2>프로젝트 상세 정보</h2>
-                    <div id="projectDetails">로딩 중...</div>
-                    <button onclick="this.parentElement.parentElement.remove()" class="btn btn-primary">닫기</button>
-                </div>
-            `;
-            document.body.appendChild(modal);
-
-            try {
-                const response = await fetch(`${API_BASE_URL}/projects/${projectId}`, {
-                    headers: {
-                        'Authorization': `Bearer ${currentToken}`
-                    }
-                });
-
-                if (response.ok) {
-                    const project = await response.json();
-                    document.getElementById('projectDetails').innerHTML = `
-                        <div class="form-group">
-                            <label>제목</label>
-                            <p>${project.title}</p>
-                        </div>
-                        <div class="form-group">
-                            <label>설명</label>
-                            <p>${project.description}</p>
-                        </div>
-                        <div class="form-group">
-                            <label>평가계획서</label>
-                            ${project.evaluation_plan ? 
-                                `<a href="${project.evaluation_plan}" class="btn btn-primary">다운로드</a>` : 
-                                '<p>파일 없음</p>'}
-                        </div>
-                        <div class="form-group">
-                            <label>제출양식</label>
-                            ${project.submission_format ? 
-                                `<a href="${project.submission_format}" class="btn btn-primary">다운로드</a>` : 
-                                '<p>파일 없음</p>'}
-                        </div>
+                response.data.forEach(project => {
+                    const projectCard = document.createElement('div');
+                    projectCard.className = 'project-card';
+                    projectCard.dataset.projectId = project.id;
+                    projectCard.innerHTML = `
+                        <h3>${project.title}</h3>
+                        <p>${project.description}</p>
+                        <p>생성일: ${new Date(project.created_at).toLocaleDateString()}</p>
+                        <p>상태: ${project.status}</p>
+                        <button onclick="executeProjectStep(${project.id}, 1)">다음 단계 실행</button>
                     `;
-                } else {
-                    const data = await response.json();
-                    showAlert(data.detail);
-                }
+                    projectList.appendChild(projectCard);
+                });
             } catch (error) {
-                showAlert('프로젝트 상세 정보를 불러오는 중 오류가 발생했습니다.');
+                alert('프로젝트 로드 실패: ' + (error.response?.data?.message || '알 수 없는 오류가 발생했습니다.'));
+            } finally {
+                hideLoading();
             }
         }
 
-        // 참고자료 검색
-        async function searchReferences(projectId) {
-            const searchModal = document.createElement('div');
-            searchModal.className = 'modal';
-            searchModal.innerHTML = `
-                <div class="modal-content card">
-                    <h2>참고자료 검색</h2>
-                    <form id="referenceSearchForm" onsubmit="return handleReferenceSearch(event, ${projectId})">
-                        <div class="form-group">
-                            <label for="searchKeywords">검색 키워드</label>
-                            <input type="text" id="searchKeywords" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">검색</button>
-                    </form>
-                    <div id="searchResults"></div>
-                    <button onclick="this.parentElement.parentElement.remove()" class="btn btn-primary">닫기</button>
-                </div>
-            `;
-            document.body.appendChild(searchModal);
-        }
-
-        async function handleReferenceSearch(event, projectId) {
-            event.preventDefault();
-            const keywords = document.getElementById('searchKeywords').value.split(',').map(k => k.trim());
-            const searchResults = document.getElementById('searchResults');
-            searchResults.innerHTML = '<div class="loading show">검색 중...</div>';
-
+        async function executeProjectStep(projectId, stepNumber) {
             try {
-                const response = await fetch(`${API_BASE_URL}/references/search?project_id=${projectId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${currentToken}`
-                    },
-                    body: JSON.stringify({ keywords })
-                });
-
-                if (response.ok) {
-                    const references = await response.json();
-                    searchResults.innerHTML = references.length ? references.map(ref => `
-                        <div class="reference-item card">
-                            <h3>${ref.title}</h3>
-                            <p>저자: ${ref.authors.join(', ')}</p>
-                            <p>출판일: ${new Date(ref.publication_date).toLocaleDateString()}</p>
-                            <p>${ref.content}</p>
-                        </div>
-                    `).join('') : '<p>검색 결과가 없습니다.</p>';
-                } else {
-                    const data = await response.json();
-                    showAlert(data.detail);
+                showLoading();
+                const response = await api.post(`/projects/${projectId}/steps/${stepNumber}/execute`);
+                
+                // 실행 결과를 해당 프로젝트 카드에 표시
+                const projectCard = document.querySelector(`[data-project-id="${projectId}"]`);
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'execution-result';
+                resultDiv.innerHTML = `
+                    <h4>실행 결과</h4>
+                    <pre>${JSON.stringify(response.data, null, 2)}</pre>
+                `;
+                
+                // 이전 실행 결과가 있다면 제거
+                const prevResult = projectCard.querySelector('.execution-result');
+                if (prevResult) {
+                    prevResult.remove();
                 }
+                
+                projectCard.appendChild(resultDiv);
             } catch (error) {
-                showAlert('참고자료 검색 중 오류가 발생했습니다.');
+                alert('단계 실행 실패: ' + (error.response?.data?.message || '알 수 없는 오류가 발생했습니다.'));
+            } finally {
+                hideLoading();
             }
         }
 
-        // 초기화 및 이벤트 리스너
-        document.addEventListener('DOMContentLoaded', () => {
-            // 탭 전환 이벤트 리스너
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    
-                    const formType = tab.dataset.form;
-                    document.getElementById('loginForm').style.display = formType === 'login' ? 'block' : 'none';
-                    document.getElementById('registerForm').style.display = formType === 'register' ? 'block' : 'none';
+        async function handleReferenceSearch() {
+            try {
+                showLoading();
+                const keywords = document.getElementById('searchKeywords').value.split(',').map(k => k.trim());
+                const projectId = document.querySelector('.main-tab.active').dataset.projectId;
+
+                const response = await api.post(`/references/search?project_id=${projectId}`, {
+                    keywords: keywords
                 });
-            });
 
-            // 저장된 토큰으로 자동 로그인
-            const savedToken = localStorage.getItem('token');
-            if (savedToken) {
-                currentToken = savedToken;
-                updateAuthUI(true);
+                const referenceList = document.getElementById('referenceList');
+                referenceList.innerHTML = '';
+
+                response.data.forEach(reference => {
+                    const referenceItem = document.createElement('div');
+                    referenceItem.className = 'reference-item';
+                    referenceItem.innerHTML = `
+                        <h3>${reference.title}</h3>
+                        <p>저자: ${reference.authors.join(', ')}</p>
+                        <p>발행일: ${new Date(reference.publication_date).toLocaleDateString()}</p>
+                        <p>${reference.content}</p>
+                        <button onclick="loadReferenceSummary(${reference.id})">요약 보기</button>
+                    `;
+                    referenceList.appendChild(referenceItem);
+                });
+            } catch (error) {
+                alert('참고문헌 검색 실패: ' + (error.response?.data?.message || '알 수 없는 오류가 발생했습니다.'));
+            } finally {
+                hideLoading();
             }
+        }
 
-            // 추가 스타일 삽입
-            const additionalStyles = document.createElement('style');
-            additionalStyles.textContent = `
-                .modal {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0,0,0,0.5);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 1000;
-                }
+        async function loadReferenceSummary(referenceId) {
+            try {
+                showLoading();
+                const response = await api.get(`/references/${referenceId}/summary`);
+                
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+                modal.style.display = 'block';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <span class="modal-close">&times;</span>
+                        <h2>참고문헌 요약</h2>
+                        <div class="summary-content">
+                            ${response.data}
+                        </div>
+                    </div>
+                `;
 
-                .modal-content {
-                    background: white;
-                    padding: 2rem;
-                    border-radius: 8px;
-                    max-width: 500px;
-                    width: 90%;
-                    max-height: 90vh;
-                    overflow-y: auto;
-                }
+                document.body.appendChild(modal);
 
-                .reference-item {
-                    margin-bottom: 1rem;
-                    padding: 1rem;
-                }
+                modal.querySelector('.modal-close').onclick = () => {
+                    modal.remove();
+                };
 
-                .project-actions {
-                    display: flex;
-                    gap: 0.5rem;
-                    margin-top: 1rem;
-                }
+                window.onclick = (event) => {
+                    if (event.target === modal) {
+                        modal.remove();
+                    }
+                };
+            } catch (error) {
+                alert('요약 로드 실패: ' + (error.response?.data?.message || '알 수 없는 오류가 발생했습니다.'));
+            } finally {
+                hideLoading();
+            }
+        }
 
-                .btn + .btn {
-                    margin-left: 0.5rem;
-                }
-            `;
-            document.head.appendChild(additionalStyles);
+        // Rate Limiting 처리
+        let requestCount = 0;
+        const resetTime = 60000; // 1분
+        
+        setInterval(() => {
+            requestCount = 0;
+        }, resetTime);
+
+        api.interceptors.request.use(async (config) => {
+            if (requestCount >= (accessToken ? 100 : 10)) {
+                throw new Error('요청 한도를 초과했습니다. 잠시 후 다시 시도해주세요.');
+            }
+            requestCount++;
+            return config;
         });
+
+        // 에러 처리
+        api.interceptors.response.use(
+            response => response,
+            error => {
+                if (error.response?.status === 401) {
+                    handleLogout();
+                }
+                throw error;
+            }
+        );
     </script>
 </body>
 </html>
