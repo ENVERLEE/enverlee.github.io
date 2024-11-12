@@ -442,25 +442,28 @@ f<!DOCTYPE html>
 
         // API 호출 함수들
         async function handleLogin() {
-            try {
-                showLoading();
-                const email = document.getElementById('loginEmail').value;
-                const password = document.getElementById('loginPassword').value;
+        try {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
 
-                const response = await api.post('/auth/token', {
-                    username: email,
-                    password: password
-                });
+        // FormData 객체를 사용하여 form-urlencoded 형식으로 데이터 전송
+            const formData = new FormData();
+            formData.append('username', email);
+            formData.append('password', password);
 
-                setAuthToken(response.data.access_token);
-                currentUser = email;
-                document.getElementById('userEmail').textContent = email;
-                showMainContent();
-                loadProjects();
+            const response = await api.post('/auth/token', formData, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            setAuthToken(response.data.access_token);
+            currentUser = email;
+            document.getElementById('userEmail').textContent = email;
+            showMainContent();
+            loadProjects();
             } catch (error) {
                 alert('로그인 실패: ' + (error.response?.data?.message || '알 수 없는 오류가 발생했습니다.'));
-            } finally {
-                hideLoading();
             }
         }
 
