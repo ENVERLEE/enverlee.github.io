@@ -1,5 +1,5 @@
 class API {
-    constructor(baseUrl = 'localhost:8000/api/v1') {
+    constructor(baseUrl = 'https://shsmapi.serveo.net/api/v1') {
         this.baseUrl = baseUrl;
         this.token = localStorage.getItem('token');
     }
