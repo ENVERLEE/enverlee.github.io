@@ -114,11 +114,13 @@ $(document).ready(() => {
     });
 
     // Project details
+    // Project details
     $(document).on('click', '.view-project', async function() {
         const projectId = $(this).closest('.project-card').data('project-id');
         try {
             const project = await api.getProject(projectId);
-            $('#projectTitle').text(project.title);
+            $('#projectTitle').text(project.title)
+                            .data('project-id', projectId); // Store project ID in the title element
             $('#projectDescription').text(project.description);
             
             const steps = await api.getProjectSteps(projectId);
@@ -127,12 +129,18 @@ $(document).ready(() => {
             
             steps.forEach((step, index) => {
                 stepsList.append(`
-                    <button class="list-group-item list-group-item-action step-item"
-                            data-step="${index + 1}">
+                    <button class="list-group-item list-group-item-action step-item ${index === 0 ? 'active' : ''}"
+                            data-step="${index + 1}"
+                            data-project-id="${projectId}">
                         Step ${index + 1}: ${step.status}
                     </button>
                 `);
             });
+
+            // Automatically load first step details
+            if (steps.length > 0) {
+                loadStepDetails(projectId, 1);
+            }
             
             showPage('projectDetails');
         } catch (error) {
@@ -140,52 +148,83 @@ $(document).ready(() => {
         }
     });
 
-    // Step management
-    $(document).on('click', '.step-item', async function() {
-        const stepNumber = $(this).data('step');
-        const projectId = $('#projectTitle').data('project-id');
-        
+    // Function to load step details
+    async function loadStepDetails(projectId, stepNumber) {
         try {
             const step = await api.getStepDetails(projectId, stepNumber);
             $('#stepTitle').text(`Step ${stepNumber}`);
-            $('#stepForm [name="description"]').val(step.description);
-            $('#stepForm [name="keywords"]').val(step.keywords.join(', '));
-            $('#stepForm [name="methodology"]').val(step.methodology);
-            $('#stepForm [name="output_format"]').val(step.output_format);
-            
-            $('.step-item').removeClass('active');
-            $(this).addClass('active');
+            $('#stepForm')
+                .data('project-id', projectId)
+                .data('step-number', stepNumber);
+            $('#stepForm [name="description"]').val(step.description || '');
+            $('#stepForm [name="keywords"]').val(Array.isArray(step.keywords) ? step.keywords.join(', ') : '');
+            $('#stepForm [name="methodology"]').val(step.methodology || '');
+            $('#stepForm [name="output_format"]').val(step.output_format || '');
         } catch (error) {
-            showToast(error.message, true);
+            showToast(`Error loading step details: ${error.message}`, true);
         }
+    }
+
+    // Step management
+    $(document).on('click', '.step-item', async function() {
+        const stepNumber = $(this).data('step');
+        const projectId = $(this).data('project-id');
+        
+        $('.step-item').removeClass('active');
+        $(this).addClass('active');
+        
+        await loadStepDetails(projectId, stepNumber);
     });
 
     $('#stepForm').on('submit', async (e) => {
         e.preventDefault();
-        const projectId = $('#projectTitle').data('project-id');
-        const stepNumber = $('.step-item.active').data('step');
+        const projectId = $('#stepForm').data('project-id');
+        const stepNumber = $('#stepForm').data('step-number');
         
         try {
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData);
-            data.keywords = data.keywords.split(',').map(k => k.trim());
+            data.keywords = data.keywords.split(',').map(k => k.trim()).filter(k => k);
             
             await api.updateStep(projectId, stepNumber, data);
             showToast('Step updated successfully');
+            
+            // Refresh step list to show updated status
+            const steps = await api.getProjectSteps(projectId);
+            const currentStep = steps.find(s => s.step_number === stepNumber);
+            $(`.step-item[data-step="${stepNumber}"]`).text(`Step ${stepNumber}: ${currentStep.status}`);
         } catch (error) {
-            showToast(error.message, true);
+            showToast(`Error updating step: ${error.message}`, true);
         }
     });
 
     $('#executeStep').on('click', async () => {
-        const projectId = $('#projectTitle').data('project-id');
-        const stepNumber = $('.step-item.active').data('step');
+        const projectId = $('#stepForm').data('project-id');
+        const stepNumber = $('#stepForm').data('step-number');
+        
+        if (!projectId || !stepNumber) {
+            showToast('Please select a step to execute', true);
+            return;
+        }
         
         try {
+            const button = $('#executeStep');
+            button.prop('disabled', true).text('Executing...');
+            
             await api.executeStep(projectId, stepNumber);
-            showToast('Step execution started');
+            showToast('Step execution started successfully');
+            
+            // Refresh step details and status
+            await loadStepDetails(projectId, stepNumber);
+            
+            // Refresh step list to show updated status
+            const steps = await api.getProjectSteps(projectId);
+            const currentStep = steps.find(s => s.step_number === stepNumber);
+            $(`.step-item[data-step="${stepNumber}"]`).text(`Step ${stepNumber}: ${currentStep.status}`);
         } catch (error) {
-            showToast(error.message, true);
+            showToast(`Error executing step: ${error.message}`, true);
+        } finally {
+            $('#executeStep').prop('disabled', false).text('Execute Step');
         }
     });
 
