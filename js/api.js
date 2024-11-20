@@ -1,5 +1,5 @@
 class API {
-    constructor(baseUrl = 'https://shsmapi.serveo.net/api/v1') {
+    constructor(baseUrl = 'https://newly-liberal-mammal.ngrok-free.app/api/v1') {
         this.baseUrl = baseUrl;
         this.token = localStorage.getItem('token');
     }
