@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loomon AI - 범용 AI 인터페이스</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">Loomon AI</h1>
+                <button class="btn-new-chat" id="btnNewChat">
+                    <span>+</span> 새 대화
+                </button>
+            </div>
+            
+            <div class="conversation-list-container">
+                <div class="conversation-list" id="conversationList">
+                    <!-- 대화 목록이 여기에 동적으로 로드됨 -->
+                </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <button class="btn-profile" id="btnProfile">
+                    <span>👤</span> 프로필
+                </button>
+                <button class="btn-subscription" id="btnSubscription">
+                    <span>💎</span> 구독
+                </button>
+            </div>
+        </aside>
+        
+        <!-- 메인 채팅 영역 -->
+        <main class="chat-area">
+            <div class="chat-header">
+                <button class="btn-settings" id="btnSettings">
+                    <span>⚙️</span> 설정
+                </button>
+                <button class="btn-subscription-header" id="btnSubscriptionHeader">
+                    <span>💎</span> 구독
+                </button>
+            </div>
+            
+            <div class="messages-container" id="messagesContainer">
+                <div class="welcome-screen" id="welcomeScreen">
+                    <h2>안녕하세요! 무엇을 도와드릴까요?</h2>
+                    <div class="suggestions">
+                        <button class="suggestion-chip" data-suggestion="파이썬으로 웹 크롤러 만들기">파이썬으로 웹 크롤러 만들기</button>
+                        <button class="suggestion-chip" data-suggestion="Django REST API 튜토리얼">Django REST API 튜토리얼</button>
+                        <button class="suggestion-chip" data-suggestion="React 컴포넌트 설계">React 컴포넌트 설계</button>
+                        <button class="suggestion-chip" data-suggestion="머신러닝 모델 평가 방법">머신러닝 모델 평가 방법</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-area">
+                <div class="input-container">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="메시지를 입력하세요..."
+                        rows="1"
+                    ></textarea>
+                    <div class="input-actions">
+                        <label class="toggle-internet">
+                            <input type="checkbox" id="internetMode">
+                            <span>🌐 인터넷 모드</span>
+                        </label>
+                        <select id="specificityLevel" class="select-specificity">
+                            <option value="매우 구체적">매우 구체적</option>
+                            <option value="구체적">구체적</option>
+                            <option value="보통">보통</option>
+                            <option value="간결">간결</option>
+                            <option value="짧음">짧음</option>
+                        </select>
+                        <button class="btn-send" id="btnSend">전송</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- 인증 모달 -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="modal-close" id="authModalClose">&times;</span>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">로그인</button>
+                <button class="auth-tab" data-tab="register">회원가입</button>
+            </div>
+            
+            <!-- 로그인 폼 -->
+            <div class="auth-form active" id="loginForm">
+                <h2>로그인</h2>
+                <form id="loginFormElement">
+                    <input type="text" id="loginUsername" placeholder="사용자명" required>
+                    <input type="password" id="loginPassword" placeholder="비밀번호" required>
+                    <button type="submit" class="btn-primary">로그인</button>
+                </form>
+            </div>
+            
+            <!-- 회원가입 폼 -->
+            <div class="auth-form" id="registerForm">
+                <h2>회원가입</h2>
+                <form id="registerFormElement">
+                    <input type="text" id="registerUsername" placeholder="사용자명" required>
+                    <input type="email" id="registerEmail" placeholder="이메일" required>
+                    <input type="password" id="registerPassword" placeholder="비밀번호" required>
+                    <textarea id="registerBio" placeholder="소개 (선택)"></textarea>
+                    <button type="submit" class="btn-primary">회원가입</button>
+                </form>
+            </div>
+            
+            <div class="auth-status" id="authStatus"></div>
+        </div>
+    </div>
+    
+    <!-- 프로필 모달 -->
+    <div class="modal" id="profileModal">
+        <div class="modal-content">
+            <span class="modal-close" id="profileModalClose">&times;</span>
+            <h2>프로필</h2>
+            <div id="profileContent">
+                <!-- 프로필 정보가 동적으로 로드됨 -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- 설정 모달 -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <span class="modal-close" id="settingsModalClose">&times;</span>
+            <h2>설정</h2>
+            <div class="settings-content">
+                <div class="setting-section">
+                    <h3>커스텀 지침</h3>
+                    <textarea 
+                        id="customInstructions" 
+                        placeholder="AI에게 항상 적용할 지침을 입력하세요..."
+                        rows="8"
+                    ></textarea>
+                    <label class="toggle-active">
+                        <input type="checkbox" id="customInstructionsActive">
+                        <span>활성화</span>
+                    </label>
+                    <button class="btn-primary" id="btnSaveCustomInstructions">저장</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 구독 모달 -->
+    <div class="modal" id="subscriptionModal">
+        <div class="modal-content modal-large">
+            <span class="modal-close" id="subscriptionModalClose">&times;</span>
+            <div class="subscription-tabs">
+                <button class="subscription-tab active" data-tab="plans">플랜</button>
+                <button class="subscription-tab" data-tab="usage">사용량</button>
+                <button class="subscription-tab" data-tab="invite">초대</button>
+                <button class="subscription-tab" data-tab="payment">결제</button>
+            </div>
+            
+            <!-- 플랜 탭 -->
+            <div class="subscription-content active" id="plansTab">
+                <h2>구독 플랜</h2>
+                <div id="subscriptionPlansList">
+                    <!-- 플랜 목록이 동적으로 로드됨 -->
+                </div>
+            </div>
+            
+            <!-- 사용량 탭 -->
+            <div class="subscription-content" id="usageTab">
+                <h2>사용량</h2>
+                <div id="usageStats">
+                    <!-- 사용량 통계가 동적으로 로드됨 -->
+                </div>
+            </div>
+            
+            <!-- 초대 탭 -->
+            <div class="subscription-content" id="inviteTab">
+                <h2>친구 초대</h2>
+                <div id="inviteContent">
+                    <!-- 초대 관련 UI가 동적으로 로드됨 -->
+                </div>
+            </div>
+            
+            <!-- 결제 탭 -->
+            <div class="subscription-content" id="paymentTab">
+                <h2>결제</h2>
+                <div id="paymentContent">
+                    <!-- 결제 관련 UI가 동적으로 로드됨 -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 로딩 오버레이 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p>처리 중...</p>
+    </div>
+    
+    <!-- 스크립트 로드 -->
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <script src="conversation.js"></script>
+    <script src="api.js"></script>
+    <script src="subscription.js"></script>
+    <script src="invite.js"></script>
+    <script src="ui.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
